@@ -201,7 +201,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Arrtirbute
 private:
-	DiskImgFile32* _pMirrorFile;				// ¾µÏñÎÄ¼ş
+	DiskImgFile32* _pMirrorFile;				// é•œåƒæ–‡ä»¶
 	//CImgFileFind _fileFind;
 	ULONGLONG		 _diskSize;
 	

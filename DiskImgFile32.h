@@ -17,25 +17,25 @@ public:
 	DiskImgFile32();
 	virtual ~DiskImgFile32();
 public:
-	virtual UINT  RelatAddrToCluster(IN UINT uRetAddr);								// Ó³Éäº¯Êı´ÓÊµ¼ÊÊµ¼ÊÆ«ÒÆÎ»ÖÃµ½´Ø
-	virtual UINT  ClusterToRelatAddr(IN UINT uCluNm);								// Ó³Éäº¯Êı´Ó´Øµ½Êµ¼ÊÆ«ÒÆÎ»ÖÃ
+	virtual UINT  RelatAddrToCluster(IN UINT uRetAddr);								// æ˜ å°„å‡½æ•°ä»å®é™…å®é™…åç§»ä½ç½®åˆ°ç°‡
+	virtual UINT  ClusterToRelatAddr(IN UINT uCluNm);								// æ˜ å°„å‡½æ•°ä»ç°‡åˆ°å®é™…åç§»ä½ç½®
 	
-	BOOL SetCurrentDirectory(IN LPCTSTR lptPathName);						// ÉèÖÃµ±Ç°Â·¾¶	
+	BOOL SetCurrentDirectory(IN LPCTSTR lptPathName);						// è®¾ç½®å½“å‰è·¯å¾„	
 	BOOL ParaDirectoryFromStr(IN LPCTSTR lptDirName, OUT vector<Fat_Directory>& fatDir);
 
 	BOOL GetDirectoryTab(OUT Fat_Directory& dir, IN UINT clus, IN LPCTSTR longName)	;
 	BOOL CreateDirectoryEx(IN LPCTSTR lpFullDir);
 
-	UINT  GetFirstFreeClusNum();											// ·µ»Ø¿ÕÏĞµÄ´ØºÅ£¬´Ó2¿ªÊ¼
-	BOOL  GetDirectoryTabEx(OUT Fat_Directory& dir, OUT LPTSTR lptLongName, IN OUT INT& nIndex);	// ·µ»Øµ±Ç°Ä¿Â¼ÏÂµÚnIndex¸öÄ¿Â¼
-	BOOL  GetDirectoryTab(OUT Fat_Directory& dir, IN OUT INT& nIndex);							// ·µ»Øµ±Ç°Ä¿Â¼ÏÂµÚnIndex¸öÄ¿Â¼
-//	BOOL  GetDirectoryTab(OUT Fat_Directory& dir, IN LPCSTR longName);							// ·µ»Øµ±Ç°Ä¿Â¼³¤ÃûÎªlongName µÄÄ¿Â¼
+	UINT  GetFirstFreeClusNum();											// è¿”å›ç©ºé—²çš„ç°‡å·ï¼Œä»2å¼€å§‹
+	BOOL  GetDirectoryTabEx(OUT Fat_Directory& dir, OUT LPTSTR lptLongName, IN OUT INT& nIndex);	// è¿”å›å½“å‰ç›®å½•ä¸‹ç¬¬nIndexä¸ªç›®å½•
+	BOOL  GetDirectoryTab(OUT Fat_Directory& dir, IN OUT INT& nIndex);							// è¿”å›å½“å‰ç›®å½•ä¸‹ç¬¬nIndexä¸ªç›®å½•
+//	BOOL  GetDirectoryTab(OUT Fat_Directory& dir, IN LPCSTR longName);							// è¿”å›å½“å‰ç›®å½•é•¿åä¸ºlongName çš„ç›®å½•
 
-	BOOL  GetDirectoryTabEx(OUT Fat_Directory& dir, IN UINT clus, OUT LPTSTR lptLongName, IN OUT INT& nIndex); // ·µ»Ø´ØclusÏÂÄ¿Â¼ÏÂµÚnIndex¸öÄ¿Â¼
-//	BOOL  GetDirectoryTab(OUT Fat_Directory& dir, IN UINT clus, IN OUT INT& nIndex);						 // ·µ»Ø´ØclusÏÂÄ¿Â¼ÏÂµÚnIndex¸öÄ¿Â¼
-//	BOOL  GetDirectoryTab(OUT Fat_Directory& dir, IN UINT clus, IN LPCSTR longName);						 // ·µ»Ø´ØclusÏÂÄ¿Â¼ÏÂ³¤ÃûÎªlongNameµÄÄ¿Â¼
+	BOOL  GetDirectoryTabEx(OUT Fat_Directory& dir, IN UINT clus, OUT LPTSTR lptLongName, IN OUT INT& nIndex); // è¿”å›ç°‡clusä¸‹ç›®å½•ä¸‹ç¬¬nIndexä¸ªç›®å½•
+//	BOOL  GetDirectoryTab(OUT Fat_Directory& dir, IN UINT clus, IN OUT INT& nIndex);						 // è¿”å›ç°‡clusä¸‹ç›®å½•ä¸‹ç¬¬nIndexä¸ªç›®å½•
+//	BOOL  GetDirectoryTab(OUT Fat_Directory& dir, IN UINT clus, IN LPCSTR longName);						 // è¿”å›ç°‡clusä¸‹ç›®å½•ä¸‹é•¿åä¸ºlongNameçš„ç›®å½•
 
-	BOOL  TrimDirEntrySpace();		// ÕûÀíÉ¾³ıÎÄ¼ş»òÕßÄ¿Â¼ºóFAT_Directory EntriesµÄ¿Õ¼ä
+	BOOL  TrimDirEntrySpace();		// æ•´ç†åˆ é™¤æ–‡ä»¶æˆ–è€…ç›®å½•åFAT_Directory Entriesçš„ç©ºé—´
 
 //////////////////////////////////////////////////////////////////////////
 // GetFreeSpace 
@@ -43,33 +43,33 @@ public:
 public:
 //////////////////////////////////////////////////////////////////////////
 // inside operator
-	BOOL  ImgCreateDirectory(IN LPCTSTR lptDirName);							// ÔÚµ±Ç°Ä¿Â¼ÏÂ½¨Á¢Ä¿Â¼º¯Êı -- 
+	BOOL  ImgCreateDirectory(IN LPCTSTR lptDirName);							// åœ¨å½“å‰ç›®å½•ä¸‹å»ºç«‹ç›®å½•å‡½æ•° -- 
 
 	
 	BOOL  ImgCreateFile(IN const LPCTSTR lptFileName, 
 						IN PBYTE pbuffer, 
 						IN const BYTE bFileAttr,
 						IN const UINT nSize,
-						HANDLE& hFile);										// ´´½¨ÎÄ¼şº¯Êı
+						HANDLE& hFile);										// åˆ›å»ºæ–‡ä»¶å‡½æ•°
 
-	BOOL  ImgDeleteDirectory(IN LPCTSTR lptDirName);							// µ±Ç°Ä¿Â¼ÏÂÉ¾³ıÄ¿Â¼º¯Êı
+	BOOL  ImgDeleteDirectory(IN LPCTSTR lptDirName);							// å½“å‰ç›®å½•ä¸‹åˆ é™¤ç›®å½•å‡½æ•°
 
-	BOOL  ImgDeleteDirectory(UINT clusNum);									// É¾³ıÔÚ¸Ã´Ø¿ªÊ¼µØ·½µÄÄ¿Â¼ µİ¹éµ÷ÓÃ 
+	BOOL  ImgDeleteDirectory(UINT clusNum);									// åˆ é™¤åœ¨è¯¥ç°‡å¼€å§‹åœ°æ–¹çš„ç›®å½• é€’å½’è°ƒç”¨ 
 
-	BOOL  ImgDeleteFile(IN LPCTSTR lptFileName);								// µ±Ç°Ä¿Â¼ÏÂÉ¾³ıÎÄ¼şº¯Êı
+	BOOL  ImgDeleteFile(IN LPCTSTR lptFileName);								// å½“å‰ç›®å½•ä¸‹åˆ é™¤æ–‡ä»¶å‡½æ•°
 
 	BOOL  ImgMoveFile(IN LPCSTR lpFileName, 
 					  IN LPCSTR lpSrcDir, 
 					  IN LPCSTR lpDesFileName,
-					  IN LPCSTR lpDesDir);									// ÒÆ¶¯ÎÄ¼şº¯Êı
+					  IN LPCSTR lpDesDir);									// ç§»åŠ¨æ–‡ä»¶å‡½æ•°
 
 	BOOL  ImgMoveDirectory(IN LPCSTR lpSrcDir, 
-						   IN LPCSTR lpDesDir);								// ÒÆ¶¯Ä¿Â¼º¯Êı
+						   IN LPCSTR lpDesDir);								// ç§»åŠ¨ç›®å½•å‡½æ•°
 
 
 //	BOOL  ImgGetFileStaus(IN LPCSTR lpFileName,
 	//					  OUT ImgFileStatus& status);
-//	BOOL  ImgOpenFile(IN LPCSTR lpFileName,									// ´ò¿ªÎÄ¼şº¯Êı
+//	BOOL  ImgOpenFile(IN LPCSTR lpFileName,									// æ‰“å¼€æ–‡ä»¶å‡½æ•°
 //					  OUT PBYTE pBuffer, 
 //					  IN DWORD nBufferLen) ;	
 
@@ -87,9 +87,9 @@ public:
 	virtual BOOL  SetVolLabel(LPCSTR lpVolLabel);
 	virtual BOOL  GetVolLabel(LPSTR lpLabel);
 
-	virtual void  InitializeClus(IN UINT clusNum);									// ³õÊ¼»¯´Ø
-	virtual BOOL  SetClus(IN UINT clusNum, IN UINT nValue);							// ÉèÖÃ´ØÁ´
-	virtual BOOL  SetClusEx(IN UINT StartClusNum, IN UINT nNeedMoreClus);			// ÉèÖÃ´ØÁ´ , Add by Joelee
+	virtual void  InitializeClus(IN UINT clusNum);									// åˆå§‹åŒ–ç°‡
+	virtual BOOL  SetClus(IN UINT clusNum, IN UINT nValue);							// è®¾ç½®ç°‡é“¾
+	virtual BOOL  SetClusEx(IN UINT StartClusNum, IN UINT nNeedMoreClus);			// è®¾ç½®ç°‡é“¾ , Add by Joelee
 	virtual BOOL  SetClusFreeStatus(IN UINT StartClusNum);
 
 	virtual DWORD SetFilePointerEx(HANDLE hFile,				// handle of file
@@ -148,26 +148,26 @@ public:
 	virtual LONGLONG TotoleSpace();
 //////////////////////////////////////////////////////////////////////////
 // Outside Operator
-	BOOL  CreateImageFile(IN LPCSTR lpFileName, IN UINT fatType = FAT32_TYPE, IN LONGLONG diskSize = 536870912);	 // 536870912 = 256M						// ´´½¨¾µÏñÎÄ¼ş
+	BOOL  CreateImageFile(IN LPCSTR lpFileName, IN UINT fatType = FAT32_TYPE, IN LONGLONG diskSize = 536870912);	 // 536870912 = 256M						// åˆ›å»ºé•œåƒæ–‡ä»¶
 
-	BOOL  FormatImgFile(IN LPCSTR lpVolLab, IN UINT fatType = FAT16_TYPE, IN LONGLONG diskSize = 536870912);		// ¸ñÊ½»¯¾µÏñÎÄ¼ş
+	BOOL  FormatImgFile(IN LPCSTR lpVolLab, IN UINT fatType = FAT16_TYPE, IN LONGLONG diskSize = 536870912);		// æ ¼å¼åŒ–é•œåƒæ–‡ä»¶
 
-	void  Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG diskSize);					// ³õÊ¼»¯
+	void  Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG diskSize);					// åˆå§‹åŒ–
 
 	
 
-	BOOL  OpenImgFile(IN LPCSTR lpFileName, IN LONGLONG diskSize = 536870912 );								// ´ò¿ª¾µÏñÎÄ¼ş
+	BOOL  OpenImgFile(IN LPCSTR lpFileName, IN LONGLONG diskSize = 536870912 );								// æ‰“å¼€é•œåƒæ–‡ä»¶
 
 	BOOL RefreshFatTable();
 	//BOOL IsFileExist(LPCSTR lpFileName);
-	BootSector_BPB32 _imgBpb;	//±£ÁôÉÈÇøĞÅÏ¢
+	BootSector_BPB32 _imgBpb;	//ä¿ç•™æ‰‡åŒºä¿¡æ¯
 	
 protected:
 	//virtual BOOL  CalcNewPos(HANDLE hFile);
 	virtual BOOL	IniWrite(HANDLE hFile , DWORD dwWriteLen);
 private:
 		
-		//BootSector_BPB32 _imgBpb_sFat;	//±£ÁôÉÈÇøĞÅÏ¢
+		//BootSector_BPB32 _imgBpb_sFat;	//ä¿ç•™æ‰‡åŒºä¿¡æ¯
 		Fat_FsInfo  _fsInfo;
 	//	vector<DWORD>  _fats;
 		BYTE*	_imgContent;

@@ -119,7 +119,7 @@ DWORD SetFilePointer(
 		return -1;
 	}
 	
-	//fseekÃ»ÓÐ¸Ä±äÔ­À´µÄÎÄ¼þÖ¸Õë
+	//fseekæ²¡æœ‰æ”¹å˜åŽŸæ¥çš„æ–‡ä»¶æŒ‡é’ˆ
 	if (dwMoveMethod==FILE_CURRENT)
 	{
 		fseek((FILE*)hFile, lDistanceToMove, SEEK_CUR);
@@ -233,7 +233,7 @@ int WideCharToMultiByte(
  			wclen++;
  		}
 		
-		//Èç¹ûÖ»ÊÇÇó³¤¶È
+		//å¦‚æžœåªæ˜¯æ±‚é•¿åº¦
 		return wclen;	
  	}
  	else 
@@ -518,7 +518,7 @@ BOOL SystemTimeToFileTime(
 	time_t tmt = mktime(&gm);
 	ULONGLONG QuadPart = (ULONGLONG)tmt*(ULONGLONG)10000000+(ULONGLONG)116444736000000000;
 	lpFileTime->dwLowDateTime = QuadPart;
-	lpFileTime->dwLowDateTime += (DWORD)lpSystemTime->wMilliseconds*10000;//¼ÓÉÏmillisecondes
+	lpFileTime->dwLowDateTime += (DWORD)lpSystemTime->wMilliseconds*10000;//åŠ ä¸Šmillisecondes
  	lpFileTime->dwHighDateTime = QuadPart >> 32;
 
     
@@ -552,7 +552,7 @@ BOOL LocalFileTimeToFileTime(
 // 	lpFileTime->dwLowDateTime = toFileTime64;	
 // 	
 
-	//ÔÚUTCµÄÇé¿öÏÂ
+	//åœ¨UTCçš„æƒ…å†µä¸‹
 	lpFileTime->dwHighDateTime = lpLocalFileTime->dwHighDateTime;
 	lpFileTime->dwLowDateTime = lpLocalFileTime->dwLowDateTime;
  	return TRUE;

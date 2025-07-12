@@ -64,7 +64,7 @@ BOOL InsertFile(CSysfs *pfs ,LPCTSTR pszSrcFullPath , LPCTSTR pszDesFullPath);
 // }
 
 void run_logEx(char* msg)
-// Ğ´ÔËĞĞÈÕÖ¾ÎÄ¼ş run.log
+// å†™è¿è¡Œæ—¥å¿—æ–‡ä»¶ run.log
 {
 	//wbt del
 #if 0
@@ -97,7 +97,7 @@ void run_logEx(char* msg)
 	//strcat(log_file,"log.txt");
 	strcpy(log_file,"c:\\log.txt");
 
-	fp=fopen(log_file,"ab");	// ×·¼Ó·½Ê½´ò¿ª
+	fp=fopen(log_file,"ab");	// è¿½åŠ æ–¹å¼æ‰“å¼€
 	if (fp==NULL)
 	{
 		printf("open file [%s] with ab fail!\n",log_file);
@@ -115,35 +115,35 @@ void run_logEx(char* msg)
 	filesize=ftell(fp);
 	fseek(fp,0,SEEK_SET);
 	
-	if (filesize>=maxsize)	// run.logÎÄ¼ş´óÓÚ1M
+	if (filesize>=maxsize)	// run.logæ–‡ä»¶å¤§äº1M
 	{
 		fclose(fp);
-		fp=fopen(log_file,"rb");	// Îª¶Á´ò¿ªÒ»¸ö¶ş½øÖÆÎÄ¼ş
+		fp=fopen(log_file,"rb");	// ä¸ºè¯»æ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶
 		if (fp==NULL)
 		{
 			printf("open file [%s] with rb fail!\n",log_file);
 			return;
 		}
 		mem =(char*)malloc(filesize);
-		if (mem==0)		// ÄÚ´æ²»×ã!
+		if (mem==0)		// å†…å­˜ä¸è¶³!
 		{
 			printf("Error: not enough memory for open [%s]!\n\n",log_file);
 			free(mem);
 			fclose(fp);
 			return;
 		}
-		fread(mem,filesize,1,fp);	// ¶ÁÎÄ¼ş
+		fread(mem,filesize,1,fp);	// è¯»æ–‡ä»¶
 		fclose(fp);
-		fp=fopen(log_file,"wb");	// ÎªÊä³ö´ò¿ªÒ»¸ö¶ş½øÖÆÎÄ¼ş
+		fp=fopen(log_file,"wb");	// ä¸ºè¾“å‡ºæ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶
 		if (fp==NULL)
 		{
 			printf("open file [%s] with wb fail!\n",log_file);
 			return;
 		}
-		fwrite(&mem[delsize],filesize-delsize,1,fp);	// É¾³ı¾ÉµÄÈÕÖ¾£¬ÖØĞÂ´æ
+		fwrite(&mem[delsize],filesize-delsize,1,fp);	// åˆ é™¤æ—§çš„æ—¥å¿—ï¼Œé‡æ–°å­˜
 		free(mem);
 		fclose(fp);
-		fp=fopen(log_file,"ab");	// ×·¼Ó·½Ê½´ò¿ª
+		fp=fopen(log_file,"ab");	// è¿½åŠ æ–¹å¼æ‰“å¼€
 		if (fp==NULL)
 		{
 			printf("open file [%s] with ab fail second time!\n",log_file);
@@ -170,7 +170,7 @@ void Log(LPCTSTR pszText)
 	file.WriteString("\n");
 #endif
 }
-//ÉùÃ÷È«¾ÖExt2µÄ¶ÔÏó±í¸ñ.
+//å£°æ˜å…¨å±€Ext2çš„å¯¹è±¡è¡¨æ ¼.
 //__Ext2Open,if the file exist,then open with ignoring the other two parameters,
 //else Open a new file
 typedef std::map<std::string,CSysfs*> SysFSMap;
@@ -180,7 +180,7 @@ FS_Space_Resv_Map g_ResvMap;
 
 
 //////////////////////////////////////////////////////////////////////////
-//2014-02-12Ìí¼ÓÎÄ¼ş´æÔÚÔòÉ¾³ı½Ó¿Ú
+//2014-02-12æ·»åŠ æ–‡ä»¶å­˜åœ¨åˆ™åˆ é™¤æ¥å£
 int PathFileExistsInImg(CSysfs* pfs , LPCTSTR szFilePath)
 {
 	//printf("PathFileExistsInImg 1\n");
@@ -249,7 +249,7 @@ DWORD FatDelEncryptFileSize(LPCTSTR pszExt2PathName,LPCTSTR pszDestDir, LPCTSTR 
 
 void FSOpen(BYTE bType,LPCTSTR pszPathName,DWORD dwBlockSize,DWORD dwLogSize,
 			ULONGLONG dwSize  , DWORD resvSize ,  BOOL bToMen )
-{//ÕâÀïµÄÂß¼­ÒªË¼¿¼Ò»ÏÂ£¬ÌØ±ğÊÇÉæ¼°µ½ÄÚ´æÎÄ¼şÏµÍ³µÄ½»»¥ÎÊÌâ.
+{//è¿™é‡Œçš„é€»è¾‘è¦æ€è€ƒä¸€ä¸‹ï¼Œç‰¹åˆ«æ˜¯æ¶‰åŠåˆ°å†…å­˜æ–‡ä»¶ç³»ç»Ÿçš„äº¤äº’é—®é¢˜.
 	//printf("eeeeeeeeeee FSOpen!\n");
 	std::string strFileName(pszPathName);
 	SysFSMap::iterator it=g_Ext2Table.find(strFileName);
@@ -878,7 +878,7 @@ BOOL IsDirEmpty(int nType,const std::string &strImagePath,const std::string &str
 
 	if (!strImagePath.empty())
 	{
-		//²éÕÒImage.
+		//æŸ¥æ‰¾Image.
 
 	}
 	else

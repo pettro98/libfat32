@@ -109,7 +109,7 @@ BOOL	MirrorFile::CreateDiskFile(LPCSTR lpFileName)
 	int ret = 0;
 
 	FSHANDLE hFile = CreateDiskFile(lpFileName, dwAccess, dwShareMode, &sa,
-		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);  //рясп╣дё╛╬м╢Р©╙ё╛ц╩сп╣д╬м╩А╥╣╩ь0xfffffff,╬мтзобцФты╢╢╫╗
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);  //Е╥╡Ф°┴Г └О╪▄Е╟╠Ф┴⌠Е╪─О╪▄Ф╡║Ф°┴Г └Е╟╠Д╪ Х©■Е⌡·0xfffffff,Е╟╠Е°╗Д╦▀И²╒Е├█Е┬⌡Е╩╨
 	
 
 	if(hFile == (FSHANDLE)-1 || hFile == (FSHANDLE)0)

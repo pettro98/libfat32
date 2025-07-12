@@ -1,10 +1,10 @@
 #ifndef __SYSFS_H__
 #define __SYSFS_H__
-/*说明：目前量产工具可能使用的接口及参数如下：
+/*璇存槑锛氱洰鍓嶉噺浜у伐鍏峰彲鑳戒娇鐢ㄧ殑鎺ュ彛鍙婂弬鏁板涓嬶細
 Release				:NULL
 Mount				:lpFileName,lpDriver, uVDiskSize
 UnMount				:lpRoot
-Format				:uFileSytem==0，lpLabel, uSectorPerCluster
+Format				:uFileSytem==0锛宭pLabel, uSectorPerCluster
 CreateDirectory		:lpPathName
 CreateFile			:lpFileName
 WriteFile			:HANDLE hFile,lpBuffer,nNumberOfBytesToWrite, lpNumberOfBytesWritten
@@ -188,7 +188,7 @@ public:
 	
 
 	virtual BOOL GetVolLabel(LPSTR lpLabel)=0;
-	virtual BOOL CloseFile(HANDLE handle)=0;	// 针对文件操作
+	virtual BOOL CloseFile(HANDLE handle)=0;	// 閽堝鏂囦欢鎿嶄綔
 	virtual void* MirrorFile() = 0;
 	virtual BOOL IsFoulder(Flag fAttr) = 0;
 	virtual BOOL IsVolLabel(Flag fAttr) =0;

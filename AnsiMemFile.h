@@ -1,12 +1,12 @@
 /**************************************************************************
-MFC����һ���ǳ����õ�CMemFile�࣬�������������д�ļ�һ��������һ���ڴ档
-�����������ȱ�����ʹ����MFC����CObject�̳У�����������д��MFC����ʱ�Ͳ���
-ʹ�����������ڴ��ļ����ˡ��������Ҹ���MFC��CMemFile��Դ�����д��һ��
-CAnsiMemFile�࣬ȥ����CMemFile��ʹ��MFC�Ĳ��֣�ϣ���Դ�����á�
+MFC中有一个非常好用的CMemFile类，可以让我们像读写文件一样来操作一块内存。
+但是它的最大缺点就是使用了MFC，从CObject继承，这样我们在写非MFC程序时就不能
+使用这个方便的内存文件类了。下面是我根据MFC的CMemFile的源代码改写的一个
+CAnsiMemFile类，去掉了CMemFile中使用MFC的部分，希望对大家有用。
 
-  CAnsiMemFile��ʹ�÷ǳ��򵥣�ֻ�ð�����Ĵ��뱣�浽һ��AnsiMemFile.hͷ�ļ���
-  �������û��CPP�ļ�����Ȼ�������VC������#include "AnsiMemFile.h"�Ϳ����ˡ�
-  ����Ľӿں�MF��CMemFile�����һ�£����Բο�MSDN��CMemFile����ĵ���
+  CAnsiMemFile的使用非常简单，只用把下面的代码保存到一个AnsiMemFile.h头文件中
+  （这个类没有CPP文件），然后在你的VC工程中#include "AnsiMemFile.h"就可以了。
+  该类的接口和MF的CMemFile类基本一致，可以参考MSDN中CMemFile类的文档。
   
 	// AnsiMemFile.h: the CAnsiMemFile class.
 	//
@@ -107,7 +107,7 @@ namespace LibHowen{
 				
 				if (lpNew == NULL){
 					//AfxThrowMemoryException();
-					//throw exception("�����ڴ����");
+					//throw exception("分配内存错误！");
                                 throw "Encounter error when allocating memory!";
 				}
 
@@ -120,7 +120,7 @@ namespace LibHowen{
 	public:
 		enum SeekPosition { begin = 0x0, current = 0x1, end = 0x2 };
 		
-		//nGrowBytes ���ļ���Ҫ����ʱ���������ȣ�ÿ������nGrowBytes���ֽڣ�
+		//nGrowBytes 该文件需要增大时的增大粒度（每次增大nGrowBytes个字节）
 		CAnsiMemFile(UINT nGrowBytes = 1024)
 		{
 			assert(nGrowBytes <= UINT_MAX);
@@ -132,7 +132,7 @@ namespace LibHowen{
 			m_lpBuffer = NULL;
 			m_bAutoDelete = TRUE;
 		}
-		//����ڹ�������Attach
+		//相对于构造后调用Attach
 		CAnsiMemFile(const BYTE* lpBuffer, UINT nBufferSize, UINT nGrowBytes = 0)
 		{
 			assert(nGrowBytes <= UINT_MAX);
@@ -160,15 +160,15 @@ namespace LibHowen{
 			m_nFileSize = 0;
 		}
 		
-		//////////////////////ȡ����
+		//////////////////////取属性
 		
-		//ȡ�õ�ǰ��дλ��
+		//取得当前读写位置
 		DWORD GetPosition() const
 		{
 			assert(this);
 			return m_nPosition;
 		}
-		//ȡ���ļ��ĵ�ǰ��С
+		//取得文件的当前大小
 		DWORD GetLength() const
 		{
 			//		DWORD dwLen, dwCur;
@@ -181,17 +181,17 @@ namespace LibHowen{
 			//		return dwLen;
 			return m_nFileSize;
 		}
-		//ȡ���ڴ�����ָ��
-		//ע�⣺ֻ������Ҫ�޸ĸ�ָ��ָ������ݡ������Ҫ��д���ļ����ݣ�����Read()��Write()
+		//取得内存数据指针
+		//注意：只读，不要修改该指针指向的内容。如果需要读写该文件内容，请用Read()和Write()
 		const BYTE  * GetPtr()
 		{
 			return m_lpBuffer;
 		}
 		
-		///////////////////////����
+		///////////////////////操作
 		
-		//ָ�����ļ����õ��ڴ�
-		//�ö�������ʱ�����ͷŸ��ڴ��
+		//指定本文件所用的内存
+		//该对象析构时不会释放改内存块
 		void Attach(BYTE* lpBuffer, UINT nBufferSize, UINT nGrowBytes)
 		{
 			assert(m_lpBuffer == NULL);
@@ -203,8 +203,8 @@ namespace LibHowen{
 			m_lpBuffer = lpBuffer;
 			m_bAutoDelete = FALSE;
 		}
-		//������ļ�������ǰռ�õ��ڴ��Ĺ���
-		//���ظ��ڴ���ָ��
+		//解除该文件和它当前占用的内存块的关联
+		//返回该内存块的指针
 		BYTE* Detach()
 		{
 			BYTE* lpBuffer = m_lpBuffer;
@@ -215,18 +215,18 @@ namespace LibHowen{
 			
 			return lpBuffer;
 		}
-		//�ƶ���дλ�õ��ļ����
+		//移动读写位置到文件最后
 		DWORD SeekToEnd()
 		{ 
 			return Seek(0, CAnsiMemFile::end); 
 		}
-		//�ƶ���дλ�õ��ļ���ͷ
+		//移动读写位置到文件开头
 		void SeekToBegin()
 		{ 
 			Seek(0, CAnsiMemFile::begin); 
 		}
-		//�ı��ļ�����
-		//�����Ҫ�����·�����ռ�ڴ�
+		//改变文件长度
+		//如果需要会重新分配所占内存
 		void SetLength(DWORD dwNewLen)
 		{
 			assert(this);
@@ -240,7 +240,7 @@ namespace LibHowen{
 			m_nFileSize = dwNewLen;
 			assert(this);
 		}
-		//�ӵ�ǰ��дλ�ö�ȡָ�����ȵ�����
+		//从当前读写位置读取指定长度的数据
 		UINT Read(void* lpBuf, UINT nCount)
 		{
 			assert(this);
@@ -267,7 +267,7 @@ namespace LibHowen{
 			
 			return nRead;
 		}
-		//дָ�����ȵ����ݵ��ļ���
+		//写指定长度的数据到文件内
 		void Write(const void* lpBuf, UINT nCount)
 		{
 			assert(this);
@@ -292,11 +292,11 @@ namespace LibHowen{
 			
 			assert(this);
 		}
-		//�ƶ���дλ��
-		//lOff �ƶ��ľ���
-		//nFrom ָ�������￪ʼ�ƶ�
+		//移动读写位置
+		//lOff 移动的距离
+		//nFrom 指定从哪里开始移动
 		//
-		//�ڶ�����������Ϊ��
+		//第二个参数可以为：
 		//enum SeekPosition { begin = 0x0, current = 0x1, end = 0x2 };
 		LONG Seek(LONG lOff, UINT nFrom)
 		{
@@ -315,7 +315,7 @@ namespace LibHowen{
 				return -1;
 			
 			if (lNewPos < 0){
-				//exception e("Seek����");
+				//exception e("Seek错误");
 				throw "Encounter error when seek file!";
 			}
 			
@@ -324,9 +324,9 @@ namespace LibHowen{
 			assert(this);
 			return m_nPosition;
 		}
-		//�ر��ڴ��ļ����ͷ���ռ�õ��ڴ棬�ó���Ϊ0��
-		//���ڴ��ļ�������������������д���κ����ݣ�
-		//�����������Զ�����Close
+		//关闭内存文件，释放所占用的内存，置长度为0。
+		//该内存文件不可增长（即不可再写入任何数据）
+		//析构函数会自动调用Close
 		void Close()
 		{
 			assert((m_lpBuffer == NULL && m_nBufferSize == 0) ||

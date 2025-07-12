@@ -153,7 +153,7 @@ __inline _PC _tcsstr(_CPC _s1,_CPC _s2) {return (_PC)strstr((_CPC)_s1,(_CPC)_s2)
 #define LOBYTE(w)           ((BYTE)(w))
 #define HIBYTE(w)           ((BYTE)(((WORD)(w) >> 8) & 0xFF))
 
-//ò��û�õ�
+//貌似没用到
 WINBASEAPI
 DWORD
 WINAPI

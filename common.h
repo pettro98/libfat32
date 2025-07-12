@@ -5,7 +5,7 @@
 // Anthor : lhs
 // 
 
-// _FAT32_VERSION FAT32¸ñÊ½Ñ¡È¡
+// _FAT32_VERSION FAT32æ ¼å¼é€‰å–
 #if !defined _INCLUDE_COMMON_H1
 #define _INCLUDE_COMMON_H1
 #include <vector>
@@ -18,14 +18,14 @@ using namespace std;
 #define EOC_STATUS12  0x0FFF
 #define BAD_STATUS16  0xFFF7
 #define EOC_STATUS16  0xFFFF
-#define BYSPERSEC  512			// Ã¿¸öÉÈÇø×Ö½ÚÊı
-#define ROOTENTCNT	512			// ¸ùÄ¿Â¼±í¸öÊı
+#define BYSPERSEC  512			// æ¯ä¸ªæ‰‡åŒºå­—èŠ‚æ•°
+#define ROOTENTCNT	512			// æ ¹ç›®å½•è¡¨ä¸ªæ•°
 
 
 typedef UINT Flag;
  
 //xm.BootSector_BPB_RW
-typedef struct _tagBootSector_BPB_RW  //Òıµ¼ÉÈÇø½á¹¹ --ÔÚ¶ÁÈ¡Òıµ¼ÉÈÇøÊı¾İÊ±ÓÃ
+typedef struct _tagBootSector_BPB_RW  //å¼•å¯¼æ‰‡åŒºç»“æ„ --åœ¨è¯»å–å¼•å¯¼æ‰‡åŒºæ•°æ®æ—¶ç”¨
 {
 	BYTE BS_jmpBoot[3];		//0
 	CHAR BS_OEMName[8];		//3
@@ -59,7 +59,7 @@ typedef struct _tagBootSector_BPB_RW  //Òıµ¼ÉÈÇø½á¹¹ --ÔÚ¶ÁÈ¡Òıµ¼ÉÈÇøÊı¾İÊ±ÓÃ
 }BootSector_BPB_RW, *PBootSector_BPB_RW;
 
 //xm.BootSector_BPB
-typedef struct _tagBootSector_BPB		//Òıµ¼ÉÈÇø½á¹¹  --±à³ÌÊ±Ê¹ÓÃ
+typedef struct _tagBootSector_BPB		//å¼•å¯¼æ‰‡åŒºç»“æ„  --ç¼–ç¨‹æ—¶ä½¿ç”¨
 {
 	BYTE BS_jmpBoot[3];		//0
 	CHAR BS_OEMName[8];		//3
@@ -119,7 +119,7 @@ typedef struct _tagBootSector_BPB32
 }BootSector_BPB32, *PBootSector_BPB32;
 
 
-typedef struct _tagFat_DirectoryRW		//Ä¿Â¼±í½á¹¹--Ô­Ê¼Êı¾İ²Ù×÷½á¹¹
+typedef struct _tagFat_DirectoryRW		//ç›®å½•è¡¨ç»“æ„--åŸå§‹æ•°æ®æ“ä½œç»“æ„
 {
 	CHAR DIR_Name[11];
 	BYTE DIR_Attr;
@@ -135,7 +135,7 @@ typedef struct _tagFat_DirectoryRW		//Ä¿Â¼±í½á¹¹--Ô­Ê¼Êı¾İ²Ù×÷½á¹¹
 	BYTE DIR_FileSize[4];	
 }Fat_DirectoryRW, *PFat_DirectoryRW;
 
-typedef struct _tagFat_Directory		//Ä¿Â¼½á¹¹--Êµ¼Ê²Ù×÷
+typedef struct _tagFat_Directory		//ç›®å½•ç»“æ„--å®é™…æ“ä½œ
 {
 	CHAR DIR_Name[11];
 	BYTE DIR_Attr;
@@ -151,7 +151,7 @@ typedef struct _tagFat_Directory		//Ä¿Â¼½á¹¹--Êµ¼Ê²Ù×÷
 	BYTE	DIR_EntryCount;
 } Fat_Directory, *PFat_Directory;	
 
-typedef struct _tagFat_LongDirectory_RW		// ³¤ÃûÄ¿Â¼
+typedef struct _tagFat_LongDirectory_RW		// é•¿åç›®å½•
 {
 	BYTE LDIR_Ord;
 	BYTE LDIR_Name1[10];
@@ -164,7 +164,7 @@ typedef struct _tagFat_LongDirectory_RW		// ³¤ÃûÄ¿Â¼
 } Fat_LongDirectory_RW, *PFat_LongDirectory_RW;
 
 
-typedef struct _tagFat_LongDirectory // ³¤ÃûÄ¿Â¼
+typedef struct _tagFat_LongDirectory // é•¿åç›®å½•
 {
 	BYTE  LDIR_Ord;
 	WORD  LDIR_FstClusLO;
@@ -177,7 +177,7 @@ typedef struct _tagFat_LongDirectory // ³¤ÃûÄ¿Â¼
 } Fat_LongDirectory, *PFat_LongDirectory;
 
 
-struct DskszToSecperClus				//´ÅÅÌÀàĞÍ¶ÔÓ¦´ØµÄÉÈÇøÊı½á¹¹Ìå
+struct DskszToSecperClus				//ç£ç›˜ç±»å‹å¯¹åº”ç°‡çš„æ‰‡åŒºæ•°ç»“æ„ä½“
 {
 	DWORD DiskSize;
 	BYTE SecPerClusVal;
@@ -267,18 +267,18 @@ void RwInfoFromLongDirInfo(Fat_DirectoryRW& rw, const Fat_LongDirectory& dir);
 void RWFsInfoFromFsInfo(OUT Fat_FsInfo_RW& rw, IN const Fat_FsInfo fs);
 void FsInfoFromRWFsInfo(OUT Fat_FsInfo fs, IN const Fat_FsInfo_RW rw);
 
-void TrimString(LPSTR lpSrc, BOOL isLeft);   // ÕûÀí×Ö·û´®ÖĞµÄ¿Õ¸ñ×Ö·û
-void RemoveCharA(LPSTR lptSrc, CHAR ch);   // Çå³ı×Ö·û´®ÖĞµÄch ×Ö·û
-void RemoveTChar(LPTSTR lptSrc, char ch);   // Çå³ı×Ö·û´®ÖĞµÄch ×Ö·û
-LPSTR ReplaceChar(LPCSTR lpSrc, char srcCh, char desCh);   // Çå³ı×Ö·û´®ÖĞµÄsrcch ×Ö·û ÎªdesCh
+void TrimString(LPSTR lpSrc, BOOL isLeft);   // æ•´ç†å­—ç¬¦ä¸²ä¸­çš„ç©ºæ ¼å­—ç¬¦
+void RemoveCharA(LPSTR lptSrc, CHAR ch);   // æ¸…é™¤å­—ç¬¦ä¸²ä¸­çš„ch å­—ç¬¦
+void RemoveTChar(LPTSTR lptSrc, char ch);   // æ¸…é™¤å­—ç¬¦ä¸²ä¸­çš„ch å­—ç¬¦
+LPSTR ReplaceChar(LPCSTR lpSrc, char srcCh, char desCh);   // æ¸…é™¤å­—ç¬¦ä¸²ä¸­çš„srcch å­—ç¬¦ ä¸ºdesCh
 BOOL GetRighStrByFind(LPTSTR lptReturn, LPCTSTR lptSrc, char ch, int len, LPCTSTR defLps);
 BOOL GetRighStrByFindA(LPSTR lpReturn, LPCSTR lpSrc, CHAR ch, int len, LPCSTR defLps);
-LPTSTR GetLeftStr(LPCTSTR lpSrc, char ch, BOOL isFromLeft); // isFromLeft -- TRUE´Ó×ó±ß¿ªÊ¼²éÕÒ FALSE´ÓÓÒ±ß¿ªÊ¼²éÕÒ
-LPSTR GetLeftStrA(LPCSTR lpSrc, CHAR ch, BOOL isFromLeft); // isFromLeft -- TRUE´Ó×ó±ß¿ªÊ¼²éÕÒ FALSE´ÓÓÒ±ß¿ªÊ¼²éÕÒ
+LPTSTR GetLeftStr(LPCTSTR lpSrc, char ch, BOOL isFromLeft); // isFromLeft -- TRUEä»å·¦è¾¹å¼€å§‹æŸ¥æ‰¾ FALSEä»å³è¾¹å¼€å§‹æŸ¥æ‰¾
+LPSTR GetLeftStrA(LPCSTR lpSrc, CHAR ch, BOOL isFromLeft); // isFromLeft -- TRUEä»å·¦è¾¹å¼€å§‹æŸ¥æ‰¾ FALSEä»å³è¾¹å¼€å§‹æŸ¥æ‰¾
 LPTSTR GetStrFromChArry(char* pch, INT len);
 BOOL  IsNeedLongEntry(LPCSTR lpstr);
 
-//ÊµÏÖÎÄ¼şµÄ64bit²Ù×÷
+//å®ç°æ–‡ä»¶çš„64bitæ“ä½œ
 ULONGLONG GetPosition(HANDLE hFile);
 ULONGLONG MakeUnsignedInt64(DWORD nHigh, DWORD nLow);
 void SplitUnsignedInt64(const ULONGLONG& nBigInt, DWORD& nHigh, DWORD& nLow);

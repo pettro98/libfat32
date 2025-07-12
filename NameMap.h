@@ -1,6 +1,6 @@
 //#include "ABC_45.h"
 //{for encrypter's sake
-//E°æÏµÁĞº¯Êı
+//Eç‰ˆç³»åˆ—å‡½æ•°
 #define BinFileTimeStampCreate XYZ_005
 #define BinFileEncrypt XYZ_031
 #define BinFileTimeStampGet XYZ_074
@@ -8,7 +8,7 @@
 #define FirmwareEncrypt XYZ_026
 #define FirmwareDecrypt XYZ_029
 //}
-//{213x ÏµÁĞº¯Êı
+//{213x ç³»åˆ—å‡½æ•°
 #define BinFileTimeStampCreate_213X XYZ_100
 #define BinFileEncrypt_213X XYZ_110
 #define BinFileTimeStampGet_213X XYZ_113
@@ -74,13 +74,13 @@ extern "C" {
 */
 	/************************************************************************/
 	/*
-	 * pInOutputBuffer         ÊäÈë\³ö²ÎÊıÊı¾İbufferÖ¸Õë(ÔÚ½Ó¿ÚÍâ·ÖÅä¿Õ¼ä¸ø¸Äbuffer£©
-     * InOutputBufferLength    ÊäÈë\³ö²ÎÊıÊı¾İbuffer³¤¶È
-     * DecryptLength           ÊäÈëÒª½âÃÜµÄÊµ¼Ê³¤¶È
-     * pInputDogID             ÊäÈëDog ID bufferÖ¸Õë //ID 16byte ´Ó¹·Àï¶Á³öÀ´
-     * ChipValue               Êä³öchipĞÅÏ¢//512 byte £¨¼ÓÃÜ£©
+	 * pInOutputBuffer         è¾“å…¥\å‡ºå‚æ•°æ•°æ®bufferæŒ‡é’ˆ(åœ¨æ¥å£å¤–åˆ†é…ç©ºé—´ç»™æ”¹bufferï¼‰
+     * InOutputBufferLength    è¾“å…¥\å‡ºå‚æ•°æ•°æ®bufferé•¿åº¦
+     * DecryptLength           è¾“å…¥è¦è§£å¯†çš„å®é™…é•¿åº¦
+     * pInputDogID             è¾“å…¥Dog ID bufferæŒ‡é’ˆ //ID 16byte ä»ç‹—é‡Œè¯»å‡ºæ¥
+     * ChipValue               è¾“å‡ºchipä¿¡æ¯//512 byte ï¼ˆåŠ å¯†ï¼‰
   
-	 * ×¢Òâ¹Ì¶¨£º*InOutputBufferLength =18*1024+ DecryptLength£»
+	 * æ³¨æ„å›ºå®šï¼š*InOutputBufferLength =18*1024+ DecryptLengthï¼›
      *                                                                
 	/************************************************************************/
 	//char SDKFirmwareDecrypt_Part(unsigned char *pInOutputBuffer, long *InOutputBufferLength,

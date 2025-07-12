@@ -113,7 +113,7 @@ unsigned char DiskImgFile::ChkSum (LPCSTR pFcbName)
 	return (Sum);
 }
 
-BOOL DiskImgFile::IsExit(LPCTSTR lptName)											// ÅĞ¶ÏÄ¿Â¼(ÎÄ¼ş)ÃûÔÚµ±Ç°Ä¿Â¼ÏÂÊÇ·ñ´æÔÚ
+BOOL DiskImgFile::IsExit(LPCTSTR lptName)											// åˆ¤æ–­ç›®å½•(æ–‡ä»¶)ååœ¨å½“å‰ç›®å½•ä¸‹æ˜¯å¦å­˜åœ¨
 {
 	int nIndex = 0;
 	Fat_Directory dir;
@@ -204,7 +204,7 @@ BOOL DiskImgFile::GetShortNameNumicTail(LPCSTR basicName, char& tailNumic)
 		if(strcmp(firstName, cmpName) == 0)
 		{
 			hasSameName = TRUE;
-			//¶ÌÃüĞòºÅÎª1,2,3»ò4Ê±, hasNumic[i]¸³Öµ  1
+			//çŸ­å‘½åºå·ä¸º1,2,3æˆ–4æ—¶, hasNumic[i]èµ‹å€¼  1
 			bTemp = dir.DIR_Name[7] - 0x30 - 1;
 			
 			if( bTemp >= 0 && bTemp <= 3)
@@ -216,7 +216,7 @@ BOOL DiskImgFile::GetShortNameNumicTail(LPCSTR basicName, char& tailNumic)
 	{
 		for(int i=0;i<4;i++)
 		{
-			if(hasNumic[i] == 0)//hasNumic[i]Îª0Ê±,Ö¤Ã÷µ±Ç°ĞòºÅÃ»ÓĞÓÃµ½,·µ»Øµ±Ç°ĞòºÅ;
+			if(hasNumic[i] == 0)//hasNumic[i]ä¸º0æ—¶,è¯æ˜å½“å‰åºå·æ²¡æœ‰ç”¨åˆ°,è¿”å›å½“å‰åºå·;
 			{
 				cMaxNumic += (i+1); 
 				break;
@@ -225,10 +225,10 @@ BOOL DiskImgFile::GetShortNameNumicTail(LPCSTR basicName, char& tailNumic)
 	}
 	
 	if(!hasSameName)
-		tailNumic = ' ';//Ã»ÓĞÏàÍ¬µÄÃû×Ö
+		tailNumic = ' ';//æ²¡æœ‰ç›¸åŒçš„åå­—
 	else 
 	{
-		if(cMaxNumic == '0')//ĞòºÅ1,2,3,4¶¼ÓÃ¹ıÁË
+		if(cMaxNumic == '0')//åºå·1,2,3,4éƒ½ç”¨è¿‡äº†
 			tailNumic = (char)0xff;
 		else
 			tailNumic = cMaxNumic;
@@ -237,7 +237,7 @@ BOOL DiskImgFile::GetShortNameNumicTail(LPCSTR basicName, char& tailNumic)
 	return TRUE;
 }
 
-INT DiskImgFile::CalcNeedTabCount(LPCTSTR lpName)									// ¸ù¾İÃû×Ö³¤¶È¼ÆËãĞèÒªÄ¿Â¼ÏîÄ¿ÊıÄ¿
+INT DiskImgFile::CalcNeedTabCount(LPCTSTR lpName)									// æ ¹æ®åå­—é•¿åº¦è®¡ç®—éœ€è¦ç›®å½•é¡¹ç›®æ•°ç›®
 {
 #ifdef _UNICODE
 	BOOL bUse = TRUE;
@@ -325,7 +325,7 @@ INT DiskImgFile::CalcNeedTabCount(LPCTSTR lpName)									// ¸ù¾İÃû×Ö³¤¶È¼ÆËãĞèÒ
 // }
 // printf("\n");	
 	//wbt mod
-	if(nWChLen != nLen) // ·ÇÓ¢ÎÄ×ÖÌå
+	if(nWChLen != nLen) // éè‹±æ–‡å­—ä½“
 	{
 //printf("nWChLen=%d != nLen=%d !! return %d\n",nWChLen, (nWChLen + 25) / 13);
 		delete[] pLongName;
@@ -367,7 +367,7 @@ INT DiskImgFile::CalcNeedTabCount(LPCTSTR lpName)									// ¸ù¾İÃû×Ö³¤¶È¼ÆËãĞèÒ
 		delete[] pLongName;
 		delete[] pch;
 		delete[] pExt;
-		return /*1*/2;//Ò»¶¨´´½¨³¤ÎÄ¼şÃû
+		return /*1*/2;//ä¸€å®šåˆ›å»ºé•¿æ–‡ä»¶å
 	}
 	
 	else if((strlen(pExt) >= 1) && (strlen(pExt) <=3) && (nLen <= 8) && (strcmp(lpName, pch) == 0))
@@ -375,7 +375,7 @@ INT DiskImgFile::CalcNeedTabCount(LPCTSTR lpName)									// ¸ù¾İÃû×Ö³¤¶È¼ÆËãĞèÒ
 		delete[] pLongName;
 		delete[] pch;
 		delete[] pExt;
-		return /*1*/2;	//Ò»¶¨´´½¨³¤ÎÄ¼şÃû
+		return /*1*/2;	//ä¸€å®šåˆ›å»ºé•¿æ–‡ä»¶å
 	}
 
 	int nCount = (nLen + 25) / 13; 
@@ -384,19 +384,19 @@ INT DiskImgFile::CalcNeedTabCount(LPCTSTR lpName)									// ¸ù¾İÃû×Ö³¤¶È¼ÆËãĞèÒ
 	delete[] pExt;
 
 	//Add by joelee 2008-08-08
-	if (nCount == 1) nCount ++;//Ò»¶¨´´½¨³¤ÎÄ¼şÃû
+	if (nCount == 1) nCount ++;//ä¸€å®šåˆ›å»ºé•¿æ–‡ä»¶å
 	return nCount;	
 #endif
 }
 
 
 /*
-¶ÌÃûÉú³ÉÔ­Ôò;
-(1).È¡³¤ÎÄ¼şÃûµÄÇ°6 ¸ö×Ö·û¼ÓÉÏ"~1"ĞÎ³É¶ÌÎÄ¼şÃû£¬À©Õ¹Ãû²»±ä¡£
-(2).Èç¹ûÒÑ´æÔÚÕâ¸öÎÄ¼şÃû£¬Ôò·ûºÅ"~"ºóµÄÊı×ÖµİÔö£¬Ö±µ½5¡£
-(3).Èç¹ûÎÄ¼şÃûÖĞ"~"ºóÃæµÄÊı×Ö´ïµ½5£¬Ôò¶ÌÎÄ¼şÃûÖ»Ê¹ÓÃ³¤ÎÄ¼şÃûµÄ
-Ç°Á½¸ö×ÖÄ¸¡£Í¨¹ı ÊıÑ§²Ù×İ( CRCĞ£Ñé ) ³¤ÎÄ¼şÃûµÄÊ£Óà×ÖÄ¸Éú³É¶ÌÎÄ¼şÃûµÄºóËÄ¸ö×ÖÄ¸£¬
-È»ºó¼Óºó×º"~1"(Èç¹ûÓĞ±ØÒª£¬»òÊÇÆäËûÊı×ÖÒÔ±ÜÃâÖØ¸´µÄÎÄ¼şÃû)¡£
+çŸ­åç”ŸæˆåŸåˆ™;
+(1).å–é•¿æ–‡ä»¶åçš„å‰6 ä¸ªå­—ç¬¦åŠ ä¸Š"~1"å½¢æˆçŸ­æ–‡ä»¶åï¼Œæ‰©å±•åä¸å˜ã€‚
+(2).å¦‚æœå·²å­˜åœ¨è¿™ä¸ªæ–‡ä»¶åï¼Œåˆ™ç¬¦å·"~"åçš„æ•°å­—é€’å¢ï¼Œç›´åˆ°5ã€‚
+(3).å¦‚æœæ–‡ä»¶åä¸­"~"åé¢çš„æ•°å­—è¾¾åˆ°5ï¼Œåˆ™çŸ­æ–‡ä»¶ååªä½¿ç”¨é•¿æ–‡ä»¶åçš„
+å‰ä¸¤ä¸ªå­—æ¯ã€‚é€šè¿‡ æ•°å­¦æ“çºµ( CRCæ ¡éªŒ ) é•¿æ–‡ä»¶åçš„å‰©ä½™å­—æ¯ç”ŸæˆçŸ­æ–‡ä»¶åçš„åå››ä¸ªå­—æ¯ï¼Œ
+ç„¶ååŠ åç¼€"~1"(å¦‚æœæœ‰å¿…è¦ï¼Œæˆ–æ˜¯å…¶ä»–æ•°å­—ä»¥é¿å…é‡å¤çš„æ–‡ä»¶å)ã€‚
 */
 BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 {
@@ -419,7 +419,7 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 #endif
 
 	//////////////////////////////////////////////////////////////////////////
-	// ±ä´óĞ´
+	// å˜å¤§å†™
 	_mbsupr((char*)pch);
 
 	int pclen = strlen(pch);
@@ -447,7 +447,7 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 	memset(pExt, 0x00, 4);
 	GetRighStrByFindA(pExt,  pch, '.', 3, " ");
 
-	//·ÖÎöºó×ºÃû£¬Ãû×ÖÖĞ¼ä²»ÄÜÓĞ¿Õ¸ñ  
+	//åˆ†æåç¼€åï¼Œåå­—ä¸­é—´ä¸èƒ½æœ‰ç©ºæ ¼  
 	//Joelee  2008-07-24
 	char tempExt[4];
 	char p;
@@ -469,9 +469,9 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// ·ÖÎöÃû×Ö
+	// åˆ†æåå­—
 	LPSTR pFileName = NULL;
-	if(strlen(pExt) == 0) // ±íÊ¾Ã»ÓĞºó×ºÃû
+	if(strlen(pExt) == 0) // è¡¨ç¤ºæ²¡æœ‰åç¼€å
 	{
 		strcat(pExt,"   ");
 		pFileName = pch;
@@ -488,7 +488,7 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 		return NULL;
 	}
 
-	//¶ÁÈ¡ÎÄ¼şÃû×îºóÒ»¸ö×Ö·û
+	//è¯»å–æ–‡ä»¶åæœ€åä¸€ä¸ªå­—ç¬¦
 	char lastChar;
 	LPSTR tempFileName = pFileName; 
 	nLen = strlen(pFileName);
@@ -502,7 +502,7 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// Çå³ı¿Õ¸ñºÍ.
+	// æ¸…é™¤ç©ºæ ¼å’Œ.
  	if (nLen > 8)
  	{
 		RemoveCharA(pFileName, ' ');
@@ -510,7 +510,7 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 	RemoveCharA(pFileName, '.');
 
 	//////////////////////////////////////////////////////////////////////////
-	// ²éÕÒµ±Ç°Ä¿Â¼ÏàÍ¬Ãû×ÖÄ¿Â¼£¨³¤Ãû£©
+	// æŸ¥æ‰¾å½“å‰ç›®å½•ç›¸åŒåå­—ç›®å½•ï¼ˆé•¿åï¼‰
 	if(IsExit(lpName))
 	{
 		if(	pFileName != pch)
@@ -522,7 +522,7 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 		return FALSE;
 	}
 	//////////////////////////////////////////////////////////////////////////
-	// Éú³É¶ÌÃû
+	// ç”ŸæˆçŸ­å
 	//nLen = strlen(pFileName);
 
 	char* pChar = NULL;
@@ -545,12 +545,12 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 	{
 		char CRCStr[5];
 		pChar = CRCSrcBuf;
-		pChar += 2;//È¡µÚ¶ş¸ö×Ö·ûÒÔºóµÄ×Ö·û´®
-		GetCRCStr(pChar , nLen-2 , CRCStr);//»ñÈ¡CRCĞ£Ñéºó¸ö×Ö·û
+		pChar += 2;//å–ç¬¬äºŒä¸ªå­—ç¬¦ä»¥åçš„å­—ç¬¦ä¸²
+		GetCRCStr(pChar , nLen-2 , CRCStr);//è·å–CRCæ ¡éªŒåä¸ªå­—ç¬¦
 
 		pChar = pFileName;
 		pChar+=2;
-		memcpy(pChar , CRCStr , 4);//´ÓpFileName[2]¿ªÊ¼ , ¸´ÖÆCRCStr ,  ³¤¶È4
+		memcpy(pChar , CRCStr , 4);//ä»pFileName[2]å¼€å§‹ , å¤åˆ¶CRCStr ,  é•¿åº¦4
 
 		GetShortNameNumicTail(pFileName, chNumic);
 	}
@@ -583,7 +583,7 @@ BOOL DiskImgFile::GenerateShortName(LPCTSTR lpName, LPSTR lpShortName)
 	
 }
 
-UINT  DiskImgFile::RelatAddrToCluster(IN UINT uRetAddr)						// Ó³Éäº¯Êı´ÓÊµ¼ÊÊµ¼ÊÆ«ÒÆÎ»ÖÃµ½´Ø
+UINT  DiskImgFile::RelatAddrToCluster(IN UINT uRetAddr)						// æ˜ å°„å‡½æ•°ä»å®é™…å®é™…åç§»ä½ç½®åˆ°ç°‡
 {
 	//_startClusterAddr = _imgBpb.BPB_BytsPerSec + _imgBpb.BPB_FATSz16*_imgBpb.BPB_BytsPerSec*2 - 32*_imgBpb.BPB_BytsPerSec;
 
@@ -593,7 +593,7 @@ UINT  DiskImgFile::RelatAddrToCluster(IN UINT uRetAddr)						// Ó³Éäº¯Êı´ÓÊµ¼ÊÊµ
 	
 }
 
-UINT  DiskImgFile::ClusterToRelatAddr(IN UINT uCluNm)						// Ó³Éäº¯Êı´Ó´Øµ½Êµ¼ÊÆ«ÒÆÎ»ÖÃ
+UINT  DiskImgFile::ClusterToRelatAddr(IN UINT uCluNm)						// æ˜ å°„å‡½æ•°ä»ç°‡åˆ°å®é™…åç§»ä½ç½®
 {
 	if(uCluNm == 0)
 		return _stOfRootAddr;
@@ -601,10 +601,10 @@ UINT  DiskImgFile::ClusterToRelatAddr(IN UINT uCluNm)						// Ó³Éäº¯Êı´Ó´Øµ½Êµ¼Ê
 	return relAddr + _stOfClusterAddr;
 }
 
-BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı   ldDirName Îª³¤ÃûÎÄ¼ş¼Ğ
+BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// å»ºç«‹ç›®å½•å‡½æ•°   ldDirName ä¸ºé•¿åæ–‡ä»¶å¤¹
 {
 	int ns = _curDirectory.size();
-	int nNeed = this->CalcNeedTabCount(lptDirName); // ĞèÒª´æ·ÅµÄ½á¹¹µÄ¸öÊı
+	int nNeed = this->CalcNeedTabCount(lptDirName); // éœ€è¦å­˜æ”¾çš„ç»“æ„çš„ä¸ªæ•°
 
 	UINT len = strlen(lptDirName);
 	LPWSTR pLongName = new WCHAR[len + 1];
@@ -637,7 +637,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 	DWORD nWrite;
 		
 	BYTE chkFlag = ChkSum(pName);
-	if(ns == 0) // ÔÚ¸ùÄ¿Â¼ÏÂ´´½¨×ÖÄ¿Â¼
+	if(ns == 0) // åœ¨æ ¹ç›®å½•ä¸‹åˆ›å»ºå­—ç›®å½•
 	{
 		Fat_Directory dir;
 		Fat_DirectoryRW dirRw;
@@ -645,7 +645,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		INT nIndex = -1;
 
 //////////////////////////////////////////////////////////////////////////
-// ¿ªÊ¼½¨Á¢Ä¿Â¼Ïî
+// å¼€å§‹å»ºç«‹ç›®å½•é¡¹
 		memset(&dirRw, 0x00, sizeof(Fat_DirectoryRW));
 		memset(&dir, 0x00, sizeof(Fat_Directory));
 		SetDiskFilePointer(NULL, _stOfRootAddr, NULL, (DWORD)FILE_BEGIN);
@@ -660,7 +660,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 				//printmsg("Error In Create RootDirectroy --Read DirRW Error!");
 				return FALSE;
 			}
-			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 			{
 				nIndex = i;
 				break;
@@ -676,7 +676,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		}		
 	
 		//////////////////////////////////////////////////////////////////////////
-		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 		if(nNeed > 1)
 		{
 			Fat_LongDirectory longDir;
@@ -688,7 +688,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 			longDir.LDIR_Type = 0;		
 			int npos = (nNeed - 2) * 13;
 			memset(longDir.LDIR_Name1, 0xff, 26);
-			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 			if((nl - npos) < 13)
 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -714,7 +714,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		//	int nl = strlen(lpDirName);
 			int npos = (i - 1) * 13;
 			memset(longDir.LDIR_Name1, 0xff, 26);
-			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 			RwInfoFromLongDirInfo(dirRw, longDir);
 		//	SetDiskFilePointer(NULL, _stOfRootAddr + 32 * nIndex, NULL, FILE_BEGIN);
 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -761,13 +761,13 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		}
 			
 		//////////////////////////////////////////////////////////////////////////
-		// ³õÊ¼»¯·ÖÅäµÃµ½´ØµÄÖµ
+		// åˆå§‹åŒ–åˆ†é…å¾—åˆ°ç°‡çš„å€¼
 	
 	    InitializeClus(clus);
 	
 	
 		//////////////////////////////////////////////////////////////////////////
-		//  ½¨Á¢ .Ä¿Â¼
+		//  å»ºç«‹ .ç›®å½•
 	
 		UINT pos = ClusterToRelatAddr(clus);
 		memcpy(dir.DIR_Name, ".       ", 8);
@@ -794,7 +794,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		
 
 		//////////////////////////////////////////////////////////////////////////
-		// ½¨Á¢ ..Ä¿Â¼
+		// å»ºç«‹ ..ç›®å½•
 		memcpy(dir.DIR_Name, "..      ", 8);
 		dir.DIR_FstClusHI = 0;
 		dir.DIR_FstClusLO = 0;
@@ -820,11 +820,11 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		//
 	}
 	
-	else  //ÔÚ×ÓÄ¿Â¼ÏÂ´´½¨×ÓÄ¿Â¼
+	else  //åœ¨å­ç›®å½•ä¸‹åˆ›å»ºå­ç›®å½•
 	{
 
 		//////////////////////////////////////////////////////////////////////////
-		// ½¨Á¢ĞÂÄ¿Â¼Ïî
+		// å»ºç«‹æ–°ç›®å½•é¡¹
 		Fat_Directory curD = _curDirectory.at(_curDirectory.size() - 1);
 
 		UINT dirAdd = this->ClusterToRelatAddr(curD.DIR_FstClusLO);
@@ -838,7 +838,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		SetDiskFilePointer(NULL, dirAdd, NULL, (DWORD)FILE_BEGIN);
 		UINT maxDircnt = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;
 		WORD cClus = curD.DIR_FstClusLO;
-		int  nDirPos = 0; // ¼ÇÂ¼Ä¿Â¼µÄÏà¶ÔÎ»ÖÃ ·ÅÖÃÔÚFat_Directory.DIR_PosIndexÖĞ
+		int  nDirPos = 0; // è®°å½•ç›®å½•çš„ç›¸å¯¹ä½ç½® æ”¾ç½®åœ¨Fat_Directory.DIR_PosIndexä¸­
 		while(1)
 		{
 			for(int i = 0; i < maxDircnt; i++)
@@ -850,7 +850,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 					return FALSE;
 				}
 				
-				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 				{
 					nIndex = i;
 					break;
@@ -879,7 +879,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		
 
 		//////////////////////////////////////////////////////////////////////////
-		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 		int retIndex = nIndex%maxDircnt;
 		if(nNeed > 1)
 		{
@@ -893,7 +893,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		//	int nl = strlen(lpDirName);
 			int npos = (nNeed - 2) * 13;
 			memset(longDir.LDIR_Name1, 0xff, 26);
-			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 			if((nl - npos) < 13)
 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -928,7 +928,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 			//int nl = strlen(lptDirName);
 			int npos = (i - 1) * 13;
 			memset(longDir.LDIR_Name1, 0xff, 26);
-			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 			RwInfoFromLongDirInfo(dirRw, longDir);
 			SetDiskFilePointer(NULL, dirAdd + 32 * retIndex, NULL, FILE_BEGIN);
 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -982,10 +982,10 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		}
 
 		//////////////////////////////////////////////////////////////////////////
-		// ³õÊ¼»¯·ÖÅäµÃµ½´ØµÄÖµ
+		// åˆå§‹åŒ–åˆ†é…å¾—åˆ°ç°‡çš„å€¼
 		InitializeClus(clus);
 		//////////////////////////////////////////////////////////////////////////
-		//  ½¨Á¢ .Ä¿Â¼
+		//  å»ºç«‹ .ç›®å½•
 
 		UINT pos = ClusterToRelatAddr(clus);
 		memcpy(dir.DIR_Name, ".          ", 11);
@@ -1011,7 +1011,7 @@ BOOL DiskImgFile::ImgCreateDirectory(IN LPCTSTR lptDirName)					// ½¨Á¢Ä¿Â¼º¯Êı 
 		
 
 		//////////////////////////////////////////////////////////////////////////
-		// ½¨Á¢ ..Ä¿Â¼
+		// å»ºç«‹ ..ç›®å½•
 		memcpy(dir.DIR_Name, "..         ", 11);
 		dir.DIR_FstClusHI = curD.DIR_FstClusHI;
 		dir.DIR_FstClusLO = curD.DIR_FstClusLO;
@@ -1138,10 +1138,10 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 								  IN PBYTE  pBuffer,
 								  IN const BYTE bFileAttr,
 								  IN const UINT nSize,
-								  HANDLE& hFile)// ´´½¨ÎÄ¼şº¯Êı
+								  HANDLE& hFile)// åˆ›å»ºæ–‡ä»¶å‡½æ•°
 {
 	int ns = _curDirectory.size();
-	int nNeed = this->CalcNeedTabCount(lptFileName); // ĞèÒª´æ·ÅµÄ½á¹¹µÄ¸öÊı
+	int nNeed = this->CalcNeedTabCount(lptFileName); // éœ€è¦å­˜æ”¾çš„ç»“æ„çš„ä¸ªæ•°
 
 	UINT len = strlen(lptFileName);
 	LPWSTR pLongName = new WCHAR[len + 1];
@@ -1178,11 +1178,11 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 	UINT fstClus = 0;
 	
 	BYTE chkFlag = ChkSum(pName);	
-	if(ns == 0) // ÔÚ¸ùÄ¿Â¼ÏÂ´´½¨ÎÄ¼ş
+	if(ns == 0) // åœ¨æ ¹ç›®å½•ä¸‹åˆ›å»ºæ–‡ä»¶
 	{
 		INT nIndex = -1;
 		//////////////////////////////////////////////////////////////////////////
-		// ¿ªÊ¼½¨Á¢Ä¿Â¼Ïî
+		// å¼€å§‹å»ºç«‹ç›®å½•é¡¹
 		SetDiskFilePointer(NULL, _stOfRootAddr, NULL, (DWORD)FILE_BEGIN);
 		for( i = 0; i < ROOTENTCNT; i++)
 		{			
@@ -1194,7 +1194,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 				printmsg("Error In Create RootFile --Read DirRW Error!");
 				return FALSE;
 			}
-			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed ==1))    // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed ==1))    // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 			{
 				nIndex = i;
 				break;
@@ -1210,7 +1210,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 		}		
 	
 		//////////////////////////////////////////////////////////////////////////
-		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 		if(nNeed > 1)
 		{
 			Fat_LongDirectory longDir;
@@ -1223,7 +1223,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 		//	int nl = strlen(lpFileName);
 			int npos = (nNeed - 2) * 13;
 			memset(longDir.LDIR_Name1, 0xff, 26);
-			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 			if((nl - npos) < 13)
 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -1248,7 +1248,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 			longDir.LDIR_Type = 0;
 			int npos = (i - 1) * 13;
 			memset(longDir.LDIR_Name1, 0xff, 26);
-			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 			RwInfoFromLongDirInfo(dirRw, longDir);
 		//	SetDiskFilePointer(NULL, _stOfRootAddr + 32 * nIndex, NULL, FILE_BEGIN);
 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -1282,7 +1282,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 
 
 		//////////////////////////////////////////////////////////////////////////
-		// ·µ»ØÎÄ¼şµÄ¾ä±ú
+		// è¿”å›æ–‡ä»¶çš„å¥æŸ„
 		ImgFileHandle* fh = new ImgFileHandle;
 		fh->_exceedsize = 0;
 		memcpy(&fh->_fileTab, &dir, sizeof(dir));
@@ -1305,7 +1305,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 		
 			
 	}
-	else		// ÔÚÆäËûÄ¿Â¼ÏÂ½¨Á¢ÎÄ¼ş
+	else		// åœ¨å…¶ä»–ç›®å½•ä¸‹å»ºç«‹æ–‡ä»¶
 	{
 		Fat_Directory curD = _curDirectory.at(_curDirectory.size() - 1);
 
@@ -1313,12 +1313,12 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 
 		INT nIndex = -1;
 		//////////////////////////////////////////////////////////////////////////
-		// ¿ªÊ¼½¨Á¢Ä¿Â¼Ïî
+		// å¼€å§‹å»ºç«‹ç›®å½•é¡¹
 
 		SetDiskFilePointer(NULL, dirAdd, NULL, (DWORD)FILE_BEGIN);
 		UINT maxDircnt = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;
 		WORD cClus = curD.DIR_FstClusLO;
-		int  nDirPos = 0; // ¼ÇÂ¼Ä¿Â¼µÄÏà¶ÔÎ»ÖÃ ·ÅÖÃÔÚFat_Directory.DIR_PosIndexÖĞ
+		int  nDirPos = 0; // è®°å½•ç›®å½•çš„ç›¸å¯¹ä½ç½® æ”¾ç½®åœ¨Fat_Directory.DIR_PosIndexä¸­
 		while(1)
 		{
 			for(int i = 0; i < maxDircnt; i++)
@@ -1332,7 +1332,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 					return FALSE;
 				}
 				
-				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 				{
 					nIndex = i;
 					break;
@@ -1365,7 +1365,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 				printmsg("Error In Create SubFile --Read DirRW Error!");
 				return FALSE;
 			}
-			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))  // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))  // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 			{
 				nIndex = i;
 				break;
@@ -1380,7 +1380,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 */
 	
 		//////////////////////////////////////////////////////////////////////////
-		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 		int retIndex = nIndex%maxDircnt;
 		if(nNeed > 1)
 		{
@@ -1393,7 +1393,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 			longDir.LDIR_Type = 0;
 			int npos = (nNeed - 2) * 13;
 			memset(longDir.LDIR_Name1, 0xff, 26);
-			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 			if((nl - npos) < 13)
 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -1429,7 +1429,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 			//int nl = strlen(lptFileName);
 			int npos = (i - 1) * 13;
 			memset(longDir.LDIR_Name1, 0xff, 26);
-			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 			RwInfoFromLongDirInfo(dirRw, longDir);
 			SetDiskFilePointer(NULL, dirAdd + 32 * retIndex, NULL, FILE_BEGIN);
 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -1496,7 +1496,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 		}
 	}
 
-	// ¼ÆËãÎÄ¼şÕ¼ÓÃ´ØµÄÊıÄ¿
+	// è®¡ç®—æ–‡ä»¶å ç”¨ç°‡çš„æ•°ç›®
 	UINT bysPerClus = _imgBpb.BPB_BytsPerSec * _imgBpb.BPB_SecPerClus;
 	UINT nFileClus = (nSize +  bysPerClus - 1) / bysPerClus;
 	if((nSize == 0) || (pBuffer == NULL))
@@ -1515,7 +1515,7 @@ BOOL  DiskImgFile::ImgCreateFile(IN const LPCTSTR lptFileName,
 		while(1)//k < nFileClus)
 		{
 			curClus = fstClus;
-			// °ÑÎÄ¼şĞ´Èë¸Ã´Ø
+			// æŠŠæ–‡ä»¶å†™å…¥è¯¥ç°‡
 			UINT reAdd = ClusterToRelatAddr(curClus);
 			SetDiskFilePointer(NULL, reAdd, NULL, FILE_BEGIN);
 			if(k < nFileClus -1)
@@ -1576,7 +1576,7 @@ BOOL  DiskImgFile::ImgDeleteDirectory(UINT clusNum)
 			continue;
 		if(dirRw.DIR_Name[0] == 0x00)
 			break;
-		if(IsFile(dirRw.DIR_Attr))  // ¼ì²âµ½ÊÇÎÄ¼ş
+		if(IsFile(dirRw.DIR_Attr))  // æ£€æµ‹åˆ°æ˜¯æ–‡ä»¶
 		{
 			DirInfoFromRwInfo(dir, dirRw);
 			UINT firstClus = dir.DIR_FstClusLO;
@@ -1628,7 +1628,7 @@ BOOL  DiskImgFile::ImgDeleteDirectory(UINT clusNum)
 	return TRUE;
 }
 				   
-BOOL  DiskImgFile::ImgDeleteDirectory(IN LPCTSTR lptDirName)					// É¾³ıÄ¿Â¼º¯Êı
+BOOL  DiskImgFile::ImgDeleteDirectory(IN LPCTSTR lptDirName)					// åˆ é™¤ç›®å½•å‡½æ•°
 {
 
 	int ns = _curDirectory.size();
@@ -1691,7 +1691,7 @@ BOOL  DiskImgFile::ImgDeleteDirectory(IN LPCTSTR lptDirName)					// É¾³ıÄ¿Â¼º¯Êı
 	if (nNeed == 0)	
 		nNeed = 1;
 
-	if(ns == 0 )	// ÔÚ¸ùÄ¿Â¼ÏÂÉ¾³ıÄ¿Â¼
+	if(ns == 0 )	// åœ¨æ ¹ç›®å½•ä¸‹åˆ é™¤ç›®å½•
 	{	
 		BYTE emptyFlag[2] = {0xE5 , 0xFF};
 		
@@ -1706,14 +1706,14 @@ BOOL  DiskImgFile::ImgDeleteDirectory(IN LPCTSTR lptDirName)					// É¾³ıÄ¿Â¼º¯Êı
 // 		}
 	}
 
-	else			// ÔÚ×ÓÄ¿Â¼ÏÂÉ¾³ıÄ¿Â¼
+	else			// åœ¨å­ç›®å½•ä¸‹åˆ é™¤ç›®å½•
 	{
 		Fat_Directory& f = _curDirectory.at(ns - 1);
 		int nPos = dir.DIR_PosIndex;
 		WORD curC = f.DIR_FstClusLO;
 
-		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-		int nCluIndex = nPos /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+		int nCluIndex = nPos /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 		UINT retIndex = nPos%recPerCluster;
 
 		UINT retAddr = ClusterToRelatAddr(curC);
@@ -1792,10 +1792,10 @@ BOOL DiskImgFile::DeleteDirEntry(UINT nClus , int nStartIndex , int nEndIndex )
 		int i = 0;					
 		WORD curC = nClus;
 				
-		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
+		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
 
 		//Delete all entry , long name and short name
-		int nCluIndex = nStartIndex /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+		int nCluIndex = nStartIndex /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 		UINT retIndex = nStartIndex%recPerCluster;
 		UINT retAddr = ClusterToRelatAddr(curC);
 	
@@ -1823,7 +1823,7 @@ BOOL DiskImgFile::DeleteDirEntry(UINT nClus , int nStartIndex , int nEndIndex )
 		}
 
 // 		//just delete short name entry
-// 		int nCluIndex = nEndIndex /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+// 		int nCluIndex = nEndIndex /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 // 		UINT retIndex = nEndIndex%recPerCluster;
 // 		UINT retAddr = ClusterToRelatAddr(curC);
 // 		
@@ -1846,7 +1846,7 @@ BOOL DiskImgFile::DeleteDirEntry(UINT nClus , int nStartIndex , int nEndIndex )
 	return TRUE;
 }
 
-BOOL  DiskImgFile::ImgDeleteFile(IN LPCTSTR lptFileName)						// É¾³ıÎÄ¼şº¯Êı
+BOOL  DiskImgFile::ImgDeleteFile(IN LPCTSTR lptFileName)						// åˆ é™¤æ–‡ä»¶å‡½æ•°
 {
 	int ns = _curDirectory.size();
 	DWORD nWrite;
@@ -1876,7 +1876,7 @@ BOOL  DiskImgFile::ImgDeleteFile(IN LPCTSTR lptFileName)						// É¾³ıÎÄ¼şº¯Êı
 	if (nNeed == 0)	
 		nNeed = 1;
 		
-	if(ns == 0 )	// ÔÚ¸ùÄ¿Â¼ÏÂÉ¾³ıÎÄ¼ş
+	if(ns == 0 )	// åœ¨æ ¹ç›®å½•ä¸‹åˆ é™¤æ–‡ä»¶
 	{		
 		BYTE emptyFlag[2] = {0xE5 , 0xFF};
 		
@@ -1892,7 +1892,7 @@ BOOL  DiskImgFile::ImgDeleteFile(IN LPCTSTR lptFileName)						// É¾³ıÎÄ¼şº¯Êı
 		SetClusFreeStatus(curc);
 	}
 	
-	else			// ÔÚ×ÓÄ¿Â¼ÏÂÉ¾³ıÎÄ¼ş
+	else			// åœ¨å­ç›®å½•ä¸‹åˆ é™¤æ–‡ä»¶
 	{
 		int i = 0;
 		Fat_Directory& parDir = _curDirectory.at(ns - 1);
@@ -1903,8 +1903,8 @@ BOOL  DiskImgFile::ImgDeleteFile(IN LPCTSTR lptFileName)						// É¾³ıÎÄ¼şº¯Êı
 		int nPos = dir.DIR_PosIndex;
 		WORD curC = parDir.DIR_FstClusLO;
 
-		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-		int nCluIndex = nPos /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+		int nCluIndex = nPos /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 		UINT retIndex = nPos%recPerCluster;
 
 		if(retIndex < (nNeed -1))
@@ -1949,7 +1949,7 @@ BOOL  DiskImgFile::ImgDeleteFile(IN LPCTSTR lptFileName)						// É¾³ıÎÄ¼şº¯Êı
 	return TRUE;
 }
 
-BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCSTR lpDesFileName, IN LPCSTR lpDesDir)		// ÒÆ¶¯ÎÄ¼şº¯Êı
+BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCSTR lpDesFileName, IN LPCSTR lpDesDir)		// ç§»åŠ¨æ–‡ä»¶å‡½æ•°
 {	
 	return TRUE;
 // 	vector<Fat_Directory> srcDirs;
@@ -1970,7 +1970,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 	}
 // 
 // /*
-// 	if(srcDirs.size() == 0) // ²»ÄÜ½«¸ùÄ¿Â¼ÒÆ¶¯
+// 	if(srcDirs.size() == 0) // ä¸èƒ½å°†æ ¹ç›®å½•ç§»åŠ¨
 // 		return FALSE;
 // */
 // 
@@ -1984,7 +1984,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 	SetCurrentDirectory(lpDesDir);
 // 	
 // 	int ns = _curDirectory.size();
-// 	int nNeed = this->CalcNeedTabCount(lpDesFileName); // ĞèÒª´æ·ÅµÄ½á¹¹µÄ¸öÊı
+// 	int nNeed = this->CalcNeedTabCount(lpDesFileName); // éœ€è¦å­˜æ”¾çš„ç»“æ„çš„ä¸ªæ•°
 // 
 // 	UINT len = strlen(lpDesFileName);
 // 	LPWSTR pLongName = new WCHAR[len + 1];
@@ -2010,7 +2010,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 	DWORD nWrite;
 // 		
 // 	BYTE chkFlag = ChkSum(pName);
-// 	if(ns == 0) // ÔÚ¸ùÄ¿Â¼ÏÂ´´½¨ÎÄ¼ş
+// 	if(ns == 0) // åœ¨æ ¹ç›®å½•ä¸‹åˆ›å»ºæ–‡ä»¶
 // 	{
 // 		Fat_Directory dir;
 // 		Fat_DirectoryRW dirRw;
@@ -2018,7 +2018,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		INT nIndex = -1;
 // 
 // //////////////////////////////////////////////////////////////////////////
-// // ¿ªÊ¼½¨Á¢Ä¿Â¼Ïî
+// // å¼€å§‹å»ºç«‹ç›®å½•é¡¹
 // 		memset(&dirRw, 0x00, sizeof(Fat_DirectoryRW));
 // 		memset(&dir, 0x00, sizeof(Fat_Directory));
 // 		SetDiskFilePointer(NULL, _stOfRootAddr, NULL, (DWORD)FILE_BEGIN);
@@ -2032,7 +2032,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 				printmsg("Error In Create RootDirectroy --Read DirRW Error!");
 // 				return FALSE;
 // 			}
-// 			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+// 			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 // 			{
 // 				nIndex = i;
 // 				break;
@@ -2045,7 +2045,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		}		
 // 	
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+// 		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 // 		if(nNeed > 1)
 // 		{
 // 			Fat_LongDirectory longDir;
@@ -2057,7 +2057,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 			longDir.LDIR_Type = 0;		
 // 			int npos = (nNeed - 2) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			if((nl - npos) < 13)
 // 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -2082,7 +2082,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		//	int nl = strlen(lpDirName);
 // 			int npos = (i - 1) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
 // 		//	SetDiskFilePointer(NULL, _stOfRootAddr + 32 * nIndex, NULL, FILE_BEGIN);
 // 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -2117,7 +2117,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		}			
 // 
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// È¡ÏûÔ­À´Î»ÖÃµÄÎÄ¼ş±í¸ñ
+// 		// å–æ¶ˆåŸæ¥ä½ç½®çš„æ–‡ä»¶è¡¨æ ¼
 // 		ns = srcDirs.size();
 // 		UINT retAddr;
 // 		if(ns == 0)
@@ -2125,7 +2125,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 			retAddr = _stOfRootAddr;
 // 			int nPos = dir.DIR_PosIndex;
 // 			retAddr = retAddr;// + nPos*32;
-// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
+// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
 // 
 // 			//BYTE emptyFlag[2] = {0xE5 , 0xFF};
 // 			BYTE emptyFlag[2] = {0xE5 , 0xFF};
@@ -2147,8 +2147,8 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 			int nPos = fileTab.DIR_PosIndex;
 // 			WORD curC = f.DIR_FstClusLO;
 // 
-// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-// 			int nCluIndex = nPos /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+// 			int nCluIndex = nPos /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 // 			UINT retIndex = nPos%recPerCluster;
 // 
 // 			UINT retAddr = ClusterToRelatAddr(curC);
@@ -2194,11 +2194,11 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		
 // 	}
 // 	
-// 	else  //ÔÚ×ÓÄ¿Â¼ÏÂ´´½¨×ÓÄ¿Â¼
+// 	else  //åœ¨å­ç›®å½•ä¸‹åˆ›å»ºå­ç›®å½•
 // 	{
 // 
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ½¨Á¢ĞÂÄ¿Â¼Ïî
+// 		// å»ºç«‹æ–°ç›®å½•é¡¹
 // 		Fat_Directory curD = _curDirectory.at(_curDirectory.size() - 1);
 // 
 // 		UINT dirAdd = this->ClusterToRelatAddr(curD.DIR_FstClusLO);
@@ -2212,7 +2212,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		SetDiskFilePointer(NULL, dirAdd, NULL, (DWORD)FILE_BEGIN);
 // 		UINT maxDircnt = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;
 // 		WORD cClus = curD.DIR_FstClusLO;
-// 		int  nDirPos = 0; // ¼ÇÂ¼Ä¿Â¼µÄÏà¶ÔÎ»ÖÃ ·ÅÖÃÔÚFat_Directory.DIR_PosIndexÖĞ
+// 		int  nDirPos = 0; // è®°å½•ç›®å½•çš„ç›¸å¯¹ä½ç½® æ”¾ç½®åœ¨Fat_Directory.DIR_PosIndexä¸­
 // 		while(1)
 // 		{
 // 			for(int i = 0; i < maxDircnt; i++)
@@ -2224,7 +2224,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 					return FALSE;
 // 				}
 // 				
-// 				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+// 				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 // 				{
 // 					nIndex = i;
 // 					break;
@@ -2251,7 +2251,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		
 // 
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+// 		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 // 		int retIndex = nIndex%maxDircnt;
 // 		if(nNeed > 1)
 // 		{
@@ -2265,7 +2265,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		//	int nl = strlen(lpDirName);
 // 			int npos = (nNeed - 2) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			if((nl - npos) < 13)
 // 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -2300,7 +2300,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 			int nl = strlen(lpFileName);
 // 			int npos = (i - 1) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
 // 			SetDiskFilePointer(NULL, dirAdd + 32 * retIndex, NULL, FILE_BEGIN);
 // 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -2355,7 +2355,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 		UINT retAddr ;
 // 		
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// È¡ÏûÔ­À´Î»ÖÃµÄÄ¿Â¼±í¸ñ
+// 		// å–æ¶ˆåŸæ¥ä½ç½®çš„ç›®å½•è¡¨æ ¼
 // 
 // 		ns = srcDirs.size();
 // 		if(ns == 0)
@@ -2363,7 +2363,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 			retAddr = _stOfRootAddr;
 // 			int nPos = fileTab.DIR_PosIndex;
 // 			retAddr = retAddr ;//+ nPos*32;
-// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
+// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
 // 
 // 			//BYTE emptyFlag[2] = {0xE5 , 0xFF};
 // 			BYTE emptyFlag[2] = {0xE5 , 0xFF};
@@ -2388,8 +2388,8 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 			int nPos = fileTab.DIR_PosIndex;
 // 			WORD curC = f.DIR_FstClusLO;
 // 
-// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-// 			int nCluIndex = nPos /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+// 			int nCluIndex = nPos /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 // 			UINT retIndex = nPos%recPerCluster;
 // 
 // 			UINT retAddr = ClusterToRelatAddr(curC);
@@ -2439,7 +2439,7 @@ BOOL  DiskImgFile::ImgMoveFile(IN LPCSTR lpFileName, IN LPCSTR lpSrcDir, IN LPCS
 // 	return TRUE;
 }
 
-BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// ÒÆ¶¯Ä¿Â¼º¯Êı
+BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// ç§»åŠ¨ç›®å½•å‡½æ•°
 {
 	return TRUE;
 // 	vector<Fat_Directory> srcDirs;
@@ -2468,7 +2468,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 	}
 // 
 // 
-// 	if(srcDirs.size() == 0) // ²»ÄÜ½«¸ùÄ¿Â¼ÒÆ¶¯
+// 	if(srcDirs.size() == 0) // ä¸èƒ½å°†æ ¹ç›®å½•ç§»åŠ¨
 // 		return FALSE;
 // 
 // 	Fat_Directory& srcTab = srcDirs.at(srcDirs.size() - 1);
@@ -2478,7 +2478,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 	
 // 
 // 	int ns = _curDirectory.size();
-// 	int nNeed = this->CalcNeedTabCount(lpDirName); // ĞèÒª´æ·ÅµÄ½á¹¹µÄ¸öÊı
+// 	int nNeed = this->CalcNeedTabCount(lpDirName); // éœ€è¦å­˜æ”¾çš„ç»“æ„çš„ä¸ªæ•°
 // 
 // 	UINT len = strlen(lpDirName);
 // 	LPWSTR pLongName = new WCHAR[len + 1];
@@ -2504,7 +2504,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 	DWORD nWrite;
 // 		
 // 	BYTE chkFlag = ChkSum(pName);
-// 	if(ns == 0) // ÔÚ¸ùÄ¿Â¼ÏÂ´´½¨×ÖÄ¿Â¼
+// 	if(ns == 0) // åœ¨æ ¹ç›®å½•ä¸‹åˆ›å»ºå­—ç›®å½•
 // 	{
 // 		Fat_Directory dir;
 // 		Fat_DirectoryRW dirRw;
@@ -2512,7 +2512,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		INT nIndex = -1;
 // 
 // //////////////////////////////////////////////////////////////////////////
-// // ¿ªÊ¼½¨Á¢Ä¿Â¼Ïî
+// // å¼€å§‹å»ºç«‹ç›®å½•é¡¹
 // 		memset(&dirRw, 0x00, sizeof(Fat_DirectoryRW));
 // 		memset(&dir, 0x00, sizeof(Fat_Directory));
 // 		SetDiskFilePointer(NULL, _stOfRootAddr, NULL, (DWORD)FILE_BEGIN);
@@ -2526,7 +2526,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 				printmsg("Error In Create RootDirectroy --Read DirRW Error!");
 // 				return FALSE;
 // 			}
-// 			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+// 			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 // 			{
 // 				nIndex = i;
 // 				break;
@@ -2540,7 +2540,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		}		
 // 	
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+// 		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 // 		if(nNeed > 1)
 // 		{
 // 			Fat_LongDirectory longDir;
@@ -2552,7 +2552,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 			longDir.LDIR_Type = 0;		
 // 			int npos = (nNeed - 2) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			if((nl - npos) < 13)
 // 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -2577,7 +2577,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		//	int nl = strlen(lpDirName);
 // 			int npos = (i - 1) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
 // 		//	SetDiskFilePointer(NULL, _stOfRootAddr + 32 * nIndex, NULL, FILE_BEGIN);
 // 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -2612,7 +2612,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		}			
 // 
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ĞŞ¸Ä..Ä¿Â¼µÄ±í¸ñ
+// 		// ä¿®æ”¹..ç›®å½•çš„è¡¨æ ¼
 // 		UINT retAddr = ClusterToRelatAddr(srcTab.DIR_FstClusLO);
 // 		SetDiskFilePointer(NULL, retAddr +32, NULL, FILE_BEGIN);
 // 		ReadDiskFile(NULL, &dirRw, sizeof(Fat_DirectoryRW), &nRead, NULL);
@@ -2633,14 +2633,14 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		}	
 // 
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// È¡ÏûÔ­À´Î»ÖÃµÄÄ¿Â¼±í¸ñ
+// 		// å–æ¶ˆåŸæ¥ä½ç½®çš„ç›®å½•è¡¨æ ¼
 // 		ns = srcDirs.size();
 // 		if(ns <= 1)
 // 		{
 // 			retAddr = _stOfRootAddr;
 // 			int nPos = srcTab.DIR_PosIndex;
 // 			retAddr = retAddr + nPos*32;
-// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
+// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
 // 
 // 			BYTE emptyFlag[2] = {0xE5 , 0xFF};
 // 			UINT retIndex = nPos;
@@ -2661,8 +2661,8 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 			int nPos = srcTab.DIR_PosIndex;
 // 			WORD curC = f.DIR_FstClusLO;
 // 
-// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-// 			int nCluIndex = nPos /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+// 			int nCluIndex = nPos /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 // 			UINT retIndex = nPos%recPerCluster;
 // 
 // 			UINT retAddr = ClusterToRelatAddr(curC);
@@ -2707,11 +2707,11 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		
 // 	}
 // 	
-// 	else  //ÔÚ×ÓÄ¿Â¼ÏÂ´´½¨×ÓÄ¿Â¼
+// 	else  //åœ¨å­ç›®å½•ä¸‹åˆ›å»ºå­ç›®å½•
 // 	{
 // 
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ½¨Á¢ĞÂÄ¿Â¼Ïî
+// 		// å»ºç«‹æ–°ç›®å½•é¡¹
 // 		Fat_Directory curD = _curDirectory.at(_curDirectory.size() - 1);
 // 
 // 		UINT dirAdd = this->ClusterToRelatAddr(curD.DIR_FstClusLO);
@@ -2725,7 +2725,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		SetDiskFilePointer(NULL, dirAdd, NULL, (DWORD)FILE_BEGIN);
 // 		UINT maxDircnt = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;
 // 		WORD cClus = curD.DIR_FstClusLO;
-// 		int  nDirPos = 0; // ¼ÇÂ¼Ä¿Â¼µÄÏà¶ÔÎ»ÖÃ ·ÅÖÃÔÚFat_Directory.DIR_PosIndexÖĞ
+// 		int  nDirPos = 0; // è®°å½•ç›®å½•çš„ç›¸å¯¹ä½ç½® æ”¾ç½®åœ¨Fat_Directory.DIR_PosIndexä¸­
 // 		while(1)
 // 		{
 // 			for(int i = 0; i < maxDircnt; i++)
@@ -2737,7 +2737,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 					return FALSE;
 // 				}
 // 				
-// 				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+// 				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 // 				{
 // 					nIndex = i;
 // 					break;
@@ -2764,7 +2764,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		
 // 
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+// 		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 // 		int retIndex = nIndex%maxDircnt;
 // 		if(nNeed > 1)
 // 		{
@@ -2778,7 +2778,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		//	int nl = strlen(lpDirName);
 // 			int npos = (nNeed - 2) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			if((nl - npos) < 13)
 // 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -2813,7 +2813,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 			int nl = strlen(lpDirName);
 // 			int npos = (i - 1) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
 // 			SetDiskFilePointer(NULL, dirAdd + 32 * retIndex, NULL, FILE_BEGIN);
 // 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -2864,7 +2864,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		//////////////////////////////////////////////////////////////////////////
 // 			
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ĞŞ¸Ä..Ä¿Â¼µÄ±í¸ñ
+// 		// ä¿®æ”¹..ç›®å½•çš„è¡¨æ ¼
 // 		UINT retAddr = ClusterToRelatAddr(srcTab.DIR_FstClusLO);
 // 		SetDiskFilePointer(NULL, retAddr +32, NULL, FILE_BEGIN);
 // 		ReadDiskFile(NULL, &dirRw, sizeof(Fat_DirectoryRW), &nRead, NULL);
@@ -2885,7 +2885,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 		}	
 // 
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// È¡ÏûÔ­À´Î»ÖÃµÄÄ¿Â¼±í¸ñ
+// 		// å–æ¶ˆåŸæ¥ä½ç½®çš„ç›®å½•è¡¨æ ¼
 // 
 // 		ns = srcDirs.size();
 // 		if(ns == 1)
@@ -2893,7 +2893,7 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 			retAddr = _stOfRootAddr;
 // 			int nPos = srcTab.DIR_PosIndex;
 // 			retAddr = retAddr + nPos*32;
-// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
+// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
 // 
 // 			BYTE emptyFlag[2] = {0xE5 , 0xFF};
 // 			UINT retIndex = nPos;
@@ -2916,8 +2916,8 @@ BOOL  DiskImgFile::ImgMoveDirectory(IN LPCSTR lpSrcDir, IN LPCSTR lpDesDir)	// Ò
 // 			int nPos = srcTab.DIR_PosIndex;
 // 			WORD curC = f.DIR_FstClusLO;
 // 
-// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-// 			int nCluIndex = nPos /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+// 			int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+// 			int nCluIndex = nPos /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 // 			UINT retIndex = nPos%recPerCluster;
 // 
 // 			UINT retAddr = ClusterToRelatAddr(curC);
@@ -3006,7 +3006,7 @@ BOOL  DiskImgFile::ImgGetFileStaus(IN LPCTSTR lptFileName,
 	return TRUE;
 }
 
-BOOL DiskImgFile::ImgOpenFile(IN LPCSTR lpFileName,									// ´ò¿ªÎÄ¼şº¯Êı
+BOOL DiskImgFile::ImgOpenFile(IN LPCSTR lpFileName,									// æ‰“å¼€æ–‡ä»¶å‡½æ•°
 					  OUT PBYTE pBuffer, 
 					  IN DWORD nBufferLen) 
 {
@@ -3127,11 +3127,11 @@ BOOL DiskImgFile::ReadFileEx(HANDLE hFile,
 	DWORD nRead;
 	
 	UINT bysPerClus = _imgBpb.BPB_BytsPerSec * _imgBpb.BPB_SecPerClus;
-	// ÏÈ¶ÁµÚÒ»¿é£¬²»¹»Ò»´ØµÄÄÇ¿ì
+	// å…ˆè¯»ç¬¬ä¸€å—ï¼Œä¸å¤Ÿä¸€ç°‡çš„é‚£å¿«
 	UINT nFirstSize = bysPerClus - fh->_curRetpos % bysPerClus;
 	UINT nJClus = fh->_curPos;
 	SetDiskFilePointer(NULL, fh->_curPos, NULL, FILE_BEGIN);
-	if(nBufferLen <= nFirstSize) // ²»ÓÃ¿ç´Ø¶Á
+	if(nBufferLen <= nFirstSize) // ä¸ç”¨è·¨ç°‡è¯»
 	{
 		fh->_curRetpos = fh->_curRetpos + nBufferLen;
 		fh->_curPos = fh->_curPos + nBufferLen;
@@ -3139,7 +3139,7 @@ BOOL DiskImgFile::ReadFileEx(HANDLE hFile,
 		*nImgRead = nRead;
 		return TRUE;
 	}
-	ReadDiskFile(NULL, pBuffer, nFirstSize, &nRead, NULL); // ÏÈ¶ÁµÚÒ»¿é£¬²»¹»Ò»´ØµÄÄÇ¿ì
+	ReadDiskFile(NULL, pBuffer, nFirstSize, &nRead, NULL); // å…ˆè¯»ç¬¬ä¸€å—ï¼Œä¸å¤Ÿä¸€ç°‡çš„é‚£å¿«
 	*nImgRead = *nImgRead + nRead;
 
 	int k = 0;
@@ -3375,7 +3375,7 @@ BOOL DiskImgFile::WriteFileEx(HANDLE hFile ,
 	DWORD nw = 0;
 	UINT nWriteLen = (UINT)nBufferLen;	
 	
-	//ÏÈĞ´µÚÒ»¿é£¬²»¹»Ò»´ØµÄÄÇ¿ì
+	//å…ˆå†™ç¬¬ä¸€å—ï¼Œä¸å¤Ÿä¸€ç°‡çš„é‚£å¿«
 	UINT bysPerClus = _imgBpb.BPB_BytsPerSec*_imgBpb.BPB_SecPerClus;
 	UINT nCurClu = RelatAddrToCluster(fh->_curPos);
 	UINT nFirstLeft = bysPerClus - fh->_curRetpos%bysPerClus;
@@ -3426,7 +3426,7 @@ BOOL DiskImgFile::WriteFileEx(HANDLE hFile ,
 		SetDiskFilePointer(devHandle, retAddr, NULL, FILE_BEGIN);
 		
 		int k = 0;
-		UINT nLeftNeedWriteSize = nBufferLen - nFirstLeft; // Ê£ÓàÒªĞ´µÄ×Ö½Ú´óĞ¡
+		UINT nLeftNeedWriteSize = nBufferLen - nFirstLeft; // å‰©ä½™è¦å†™çš„å­—èŠ‚å¤§å°
 		
 		
 		while (nLeftNeedWriteSize > k*bysPerClus)//
@@ -3486,7 +3486,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 {
 	return TRUE;
 // 	//////////////////////////////////////////////////////////////////////////
-// 	// »ñÈ¡µ±Ç°µÄ
+// 	// è·å–å½“å‰çš„
 // 
 // 
 // 	if(lpSrcName == NULL)
@@ -3518,7 +3518,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 	}
 // 	*/
 // 	//////////////////////////////////////////////////////////////////////////
-// 	// É¾³ıÔ­À´µÄFAT
+// 	// åˆ é™¤åŸæ¥çš„FAT
 // 
 // 	int ns = _curDirectory.size();
 // 	DWORD nWrite;
@@ -3543,7 +3543,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 
 // 	int nNeed = CalcNeedTabCount(lpSrcName);
 // 	
-// 	if(ns == 0 )	// ÔÚ¸ùÄ¿Â¼ÏÂÉ¾³ıÎÄ¼ş
+// 	if(ns == 0 )	// åœ¨æ ¹ç›®å½•ä¸‹åˆ é™¤æ–‡ä»¶
 // 	{
 // 		BYTE emptyFlag[2] = {0xE5 , 0xFF};
 // 		for(int i = 0; i < nNeed; i++)
@@ -3552,7 +3552,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 			WriteDiskFile(_hFile, emptyFlag, 2, &nWrite, NULL);
 // 		}		
 // 	}	
-// 	else			// ÔÚ×ÓÄ¿Â¼ÏÂÉ¾³ıÎÄ¼ş
+// 	else			// åœ¨å­ç›®å½•ä¸‹åˆ é™¤æ–‡ä»¶
 // 	{
 // 
 // 		Fat_Directory& parDir = _curDirectory.at(ns - 1);
@@ -3561,8 +3561,8 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 		int nPos = dir.DIR_PosIndex;
 // 		WORD curC = parDir.DIR_FstClusLO;
 // 
-// 		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-// 		int nCluIndex = nPos /recPerCluster;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+// 		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+// 		int nCluIndex = nPos /recPerCluster;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 // 		UINT retIndex = nPos%recPerCluster;
 // 
 // 		int i;
@@ -3604,7 +3604,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 	delete[] lpLongName;
 // 
 // 	//////////////////////////////////////////////////////////////////////////
-// 	// ½¨Á¢ĞÂµÄFAT
+// 	// å»ºç«‹æ–°çš„FAT
 // 
 // /*	LPSTR lpNewDir = GetLeftStr(lpNewFileName, '\\', FALSE);
 // 
@@ -3624,7 +3624,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // */
 // 
 // 	UINT len = strlen(lpNewFileName);
-// 	nNeed = this->CalcNeedTabCount(lpNewFileName); // ĞèÒª´æ·ÅµÄ½á¹¹µÄ¸öÊı
+// 	nNeed = this->CalcNeedTabCount(lpNewFileName); // éœ€è¦å­˜æ”¾çš„ç»“æ„çš„ä¸ªæ•°
 // 	LPWSTR pLongName = new WCHAR[len + 1];
 // 	memset(pLongName, 0x00, len * 2);
 // 	int nl = ::MultiByteToWideChar(m_CodePage, 0, lpNewFileName, len, pLongName, len+1);
@@ -3649,12 +3649,12 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 	ns = _curDirectory.size();
 // 	
 // 	BYTE chkFlag = ChkSum(pName);	
-// 	if(ns == 0) // ÔÚ¸ùÄ¿Â¼ÏÂ´´½¨ÎÄ¼ş
+// 	if(ns == 0) // åœ¨æ ¹ç›®å½•ä¸‹åˆ›å»ºæ–‡ä»¶
 // 	{
 // 		INT nIndex = -1;
 // 		int i;
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ¿ªÊ¼½¨Á¢Ä¿Â¼Ïî
+// 		// å¼€å§‹å»ºç«‹ç›®å½•é¡¹
 // 		SetDiskFilePointer(NULL, _stOfRootAddr, NULL, (DWORD)FILE_BEGIN);
 // 		for( i = 0; i < ROOTENTCNT; i++)
 // 		{			
@@ -3665,7 +3665,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 				printmsg("Error In Create RootFile --Read DirRW Error!");
 // 				return FALSE;
 // 			}
-// 			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed ==1))    // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+// 			if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed ==1))    // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 // 			{
 // 				nIndex = i;
 // 				break;
@@ -3679,7 +3679,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 		}		
 // 	
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+// 		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 // 		if(nNeed > 1)
 // 		{
 // 			Fat_LongDirectory longDir;
@@ -3692,7 +3692,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 		//	int nl = strlen(lpFileName);
 // 			int npos = (nNeed - 2) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			if((nl - npos) < 13)
 // 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -3717,7 +3717,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 			longDir.LDIR_Type = 0;
 // 			int npos = (i - 1) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
 // 		//	SetDiskFilePointer(NULL, _stOfRootAddr + 32 * nIndex, NULL, FILE_BEGIN);
 // 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -3745,7 +3745,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 		//////////////////////////////////////////////////////////////////////////		
 // 			
 // 	}
-// 	else		// ÔÚÆäËûÄ¿Â¼ÏÂ½¨Á¢ÎÄ¼ş
+// 	else		// åœ¨å…¶ä»–ç›®å½•ä¸‹å»ºç«‹æ–‡ä»¶
 // 	{
 // 		Fat_Directory curD = _curDirectory.at(_curDirectory.size() - 1);
 // 
@@ -3753,12 +3753,12 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 
 // 		INT nIndex = -1;
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ¿ªÊ¼½¨Á¢Ä¿Â¼Ïî
+// 		// å¼€å§‹å»ºç«‹ç›®å½•é¡¹
 // 
 // 		SetDiskFilePointer(NULL, dirAdd, NULL, (DWORD)FILE_BEGIN);
 // 		UINT maxDircnt = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;
 // 		WORD cClus = curD.DIR_FstClusLO;
-// 		int  nDirPos = 0; // ¼ÇÂ¼Ä¿Â¼µÄÏà¶ÔÎ»ÖÃ ·ÅÖÃÔÚFat_Directory.DIR_PosIndexÖĞ
+// 		int  nDirPos = 0; // è®°å½•ç›®å½•çš„ç›¸å¯¹ä½ç½® æ”¾ç½®åœ¨Fat_Directory.DIR_PosIndexä¸­
 // 		while(1)
 // 		{
 // 			for(int i = 0; i < maxDircnt; i++)
@@ -3772,7 +3772,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 					return FALSE;
 // 				}
 // 				
-// 				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // ÅĞ¶ÏÊÇ·ñÎª¿ÕÏî
+// 				if(dirRw.DIR_Name[0] == 0x00 || ((dirRw.DIR_Name[0] == (char)0xE5) && nNeed == 1))   // åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé¡¹
 // 				{
 // 					nIndex = i;
 // 					break;
@@ -3798,7 +3798,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 		}	
 // 	
 // 		//////////////////////////////////////////////////////////////////////////
-// 		// ´¦Àí³¤ÃûÄ¿Â¼ÏîÄ¿
+// 		// å¤„ç†é•¿åç›®å½•é¡¹ç›®
 // 		int retIndex = nIndex%maxDircnt;
 // 		if(nNeed > 1)
 // 		{
@@ -3811,7 +3811,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 			longDir.LDIR_Type = 0;
 // 			int npos = (nNeed - 2) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, (nl - npos)*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			if((nl - npos) < 13)
 // 				memset(longDir.LDIR_Name1 + (nl - npos),  0x00, 2);
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
@@ -3847,7 +3847,7 @@ BOOL  DiskImgFile::RenameFileEx(LPCSTR lpSrcName, LPCSTR lpNewFileName)
 // 			int nl = strlen(lpNewFileName);
 // 			int npos = (i - 1) * 13;
 // 			memset(longDir.LDIR_Name1, 0xff, 26);
-// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// ½«Ê£ÓàµÄÃû×ÖÈ«²¿¿½±´½øÈ¥
+// 			memcpy(longDir.LDIR_Name1, pLongName + npos, 13*2);		// å°†å‰©ä½™çš„åå­—å…¨éƒ¨æ‹·è´è¿›å»
 // 			RwInfoFromLongDirInfo(dirRw, longDir);
 // 			SetDiskFilePointer(NULL, dirAdd + 32 * retIndex, NULL, FILE_BEGIN);
 // 			if(!WriteDiskFile(_hFile, &dirRw, sizeof(Fat_DirectoryRW), &nWrite, NULL))
@@ -4068,7 +4068,7 @@ DWORD DiskImgFile::SetFilePointerEx(HANDLE hFile,
 	int method = (int)dwMoveMethod;
 	UINT firstClu = fh->_fileTab.DIR_FstClusLO;
 	UINT maxSizePerClus = _imgBpb.BPB_BytsPerSec*_imgBpb.BPB_SecPerClus;
-	int nClusC = lDistanceToMove /maxSizePerClus; // ¼ÆËãµÃµ½¿çÔ½´ØµÄÊıÁ¿
+	int nClusC = lDistanceToMove /maxSizePerClus; // è®¡ç®—å¾—åˆ°è·¨è¶Šç°‡çš„æ•°é‡
 
 	switch(method)
 	{
@@ -4084,7 +4084,7 @@ DWORD DiskImgFile::SetFilePointerEx(HANDLE hFile,
 		break;
 	case FILE_CURRENT:
 		{
-// 			nClusC = (fh->_curRetpos + lDistanceToMove) /maxSizePerClus; // ¼ÆËãµÃµ½¿çÔ½´ØµÄÊıÁ¿
+// 			nClusC = (fh->_curRetpos + lDistanceToMove) /maxSizePerClus; // è®¡ç®—å¾—åˆ°è·¨è¶Šç°‡çš„æ•°é‡
 // 			for(int i = 0; i <nClusC; i++)
 // 			{
 // 				firstClu = _fats.at(firstClu);
@@ -4129,7 +4129,7 @@ DWORD DiskImgFile::SetFilePointerEx(HANDLE hFile,
 	
 }
 
-BOOL  DiskImgFile::CreateImageFile(IN LPCSTR lpszFileName, IN UINT fatType, IN LONGLONG diskSize)					// ´´½¨¾µÏñÎÄ¼ş
+BOOL  DiskImgFile::CreateImageFile(IN LPCSTR lpszFileName, IN UINT fatType, IN LONGLONG diskSize)					// åˆ›å»ºé•œåƒæ–‡ä»¶
 {
 #ifdef _WINDOWS
 	ASSERT(AfxIsValidString(lpszFileName));
@@ -4185,7 +4185,7 @@ BOOL  DiskImgFile::CreateImageFile(IN LPCSTR lpszFileName, IN UINT fatType, IN L
 
 	if (nWritten != nCount)
 	{
-		printmsg("Write bpb Error2! ¿Õ¼ä²»¹»´ó£¡");
+		printmsg("Write bpb Error2! ç©ºé—´ä¸å¤Ÿå¤§ï¼");
 		return FALSE;
 	}
 
@@ -4242,7 +4242,7 @@ BOOL  DiskImgFile::CreateImageFile(IN LPCSTR lpszFileName, IN UINT fatType, IN L
 		}
 		if(nWritten != 2)
 		{
-			printmsg("Write FAT1 Error2! ¿Õ¼ä²»¹»´ó£¡");
+			printmsg("Write FAT1 Error2! ç©ºé—´ä¸å¤Ÿå¤§ï¼");
 			break;
 		}
 	}
@@ -4257,7 +4257,7 @@ BOOL  DiskImgFile::CreateImageFile(IN LPCSTR lpszFileName, IN UINT fatType, IN L
 		}
 		if(nWritten != 2)
 		{
-			printmsg("Write FAT2 Error2! ¿Õ¼ä²»¹»´ó£¡");
+			printmsg("Write FAT2 Error2! ç©ºé—´ä¸å¤Ÿå¤§ï¼");
 			break;
 		}
 	}
@@ -4327,10 +4327,10 @@ BOOL  DiskImgFile::CreateImageFile(IN LPCSTR lpszFileName, IN UINT fatType, IN L
 }
 
 
-void  DiskImgFile::Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG diskSize)											// ³õÊ¼»¯
+void  DiskImgFile::Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG diskSize)											// åˆå§‹åŒ–
 {
 /*
-*	diskSizeµÄÖµÎª Ã¶¾ÙDISKSIZE
+*	diskSizeçš„å€¼ä¸º æšä¸¾DISKSIZE
 	*/
 	_imgSpace = DiskSizeType(diskSize);
 	
@@ -4353,7 +4353,7 @@ void  DiskImgFile::Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG disk
 // 	UINT TmpVal2 = (256 * DskTableFAT16[_imgSpace].SecPerClusVal) + /*BPB_NumFATs*/2;
 // 	UINT FATSz = (TmpVal1 + (TmpVal2 -1)) / TmpVal2;
 
-	UINT RootDirSectors = ((ROOTENTCNT * 32) + (BYSPERSEC - 1)) / BYSPERSEC;  //¸ùÄ¿Â¼ËùÕ¼×Ö½ÚÊı
+	UINT RootDirSectors = ((ROOTENTCNT * 32) + (BYSPERSEC - 1)) / BYSPERSEC;  //æ ¹ç›®å½•æ‰€å å­—èŠ‚æ•°
 	UINT TmpVal1 = totsec - (_imgBpb.BPB_RsvdSecCnt + RootDirSectors);
 	UINT TmpVal2 = (256 * SecPerClus) + _imgBpb.BPB_NumFATs;
 	UINT FATSz = (TmpVal1 + (TmpVal2 - 1)) / TmpVal2;
@@ -4398,7 +4398,7 @@ void  DiskImgFile::Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG disk
 	
 	_imgBpb.BS_jmpBoot[0] = 0xEB;		
 	_imgBpb.BS_jmpBoot[1] = 0x3C;
-	_imgBpb.BS_jmpBoot[2] = 0x90;		//´ı¶¨
+	_imgBpb.BS_jmpBoot[2] = 0x90;		//å¾…å®š
 	
 	memcpy(_imgBpb.BS_OEMName, "MSDOS5.0", 8);		
 	
@@ -4431,7 +4431,7 @@ void  DiskImgFile::Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG disk
 	_imgBpb.BS_DrvNum = 0x80;		
 	_imgBpb.BS_Reserved1 = 0;	
 	_imgBpb.BS_BootSig = 0x29;		
-	_imgBpb.BS_VolID = 111;		//  Ëæ»úÉú³É
+	_imgBpb.BS_VolID = 111;		//  éšæœºç”Ÿæˆ
 	int nLen = strlen(lpVolab);
 	char volLab[11];
 	memcpy(volLab, lpVolab, nLen);
@@ -4456,10 +4456,10 @@ void  DiskImgFile::Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG disk
 	if (fatType == FAT12_TYPE)
 	{
 		int isize= (_imgBpb.BPB_FATSz16*BYSPERSEC*2)/3;
-		_fats.resize(isize); // ¼ÆËãµÃµ½FATÏîÄ¿µÄÊıÄ¿
+		_fats.resize(isize); // è®¡ç®—å¾—åˆ°FATé¡¹ç›®çš„æ•°ç›®
 	}
 	else
-		_fats.resize(_imgBpb.BPB_FATSz16*BYSPERSEC/2); // ¼ÆËãµÃµ½FATÏîÄ¿µÄÊıÄ¿
+		_fats.resize(_imgBpb.BPB_FATSz16*BYSPERSEC/2); // è®¡ç®—å¾—åˆ°FATé¡¹ç›®çš„æ•°ç›®
 
 	for( i = 0; i < _fats.size(); i++)
 	{
@@ -4472,7 +4472,7 @@ void  DiskImgFile::Iinitialize(LPCSTR lpVolab, IN UINT fatType, IN LONGLONG disk
 
 
 
-UINT  DiskImgFile::GetFirstFreeClusNum() // ·µ»Ø¿ÕÏĞµÄ´ØºÅ£¬´Ó2¿ªÊ¼
+UINT  DiskImgFile::GetFirstFreeClusNum() // è¿”å›ç©ºé—²çš„ç°‡å·ï¼Œä»2å¼€å§‹
 {
 	int nsFat = _fats.size();
 	for(int i = 0; i < nsFat; i++)
@@ -4544,7 +4544,7 @@ BOOL  DiskImgFile::SetClusFreeStatus(IN UINT StartClusNum)
 	return TRUE;	
 }
 
-BOOL  DiskImgFile::SetClusEx(IN UINT StartClusNum, IN UINT nNeedMoreClus)// ÉèÖÃ´ØÁ´ , Add by Joelee
+BOOL  DiskImgFile::SetClusEx(IN UINT StartClusNum, IN UINT nNeedMoreClus)// è®¾ç½®ç°‡é“¾ , Add by Joelee
 {
 	if (nNeedMoreClus == 0) return TRUE;	
 
@@ -4599,7 +4599,7 @@ BOOL  DiskImgFile::SetClusEx(IN UINT StartClusNum, IN UINT nNeedMoreClus)// ÉèÖÃ
 	return TRUE;
 }
 
-BOOL  DiskImgFile::SetClus(IN UINT clusNum, IN UINT nValue)	// ÉèÖÃ´ØÁ´
+BOOL  DiskImgFile::SetClus(IN UINT clusNum, IN UINT nValue)	// è®¾ç½®ç°‡é“¾
 {
 //	DWORD nWrite;
 	if(clusNum < 2)
@@ -4647,8 +4647,8 @@ void  DiskImgFile::InitializeClus(IN UINT clusNum)
 
 
 //////////////////////////////////////////////////////////////////////////
-//Function: ParaDirectoryFromStr ¶ÔÄ¿Â¼Â·¾¶×Ö·û´®½øĞĞ½âÎö¡£
-// ×¢£º¸ùÄ¿Â¼µÄ±íÊ¾ÎªÇ°ÃæÃ»ÓĞÈÎºÎÆäËû×Ö·û Èç \\abc\\ab ±íÊ¾´Ó¸ùÄ¿Â¼¿ªÊ¼µÄabcÄ¿Â¼ÏÂµÄabÄ¿Â¼
+//Function: ParaDirectoryFromStr å¯¹ç›®å½•è·¯å¾„å­—ç¬¦ä¸²è¿›è¡Œè§£æã€‚
+// æ³¨ï¼šæ ¹ç›®å½•çš„è¡¨ç¤ºä¸ºå‰é¢æ²¡æœ‰ä»»ä½•å…¶ä»–å­—ç¬¦ å¦‚ \\abc\\ab è¡¨ç¤ºä»æ ¹ç›®å½•å¼€å§‹çš„abcç›®å½•ä¸‹çš„abç›®å½•
 //
 BOOL DiskImgFile::ParaDirectoryFromStr(IN LPCTSTR lptDirName, OUT vector<Fat_Directory>& fatDir) 
 {
@@ -4712,7 +4712,7 @@ BOOL DiskImgFile::ParaDirectoryFromStr(IN LPCTSTR lptDirName, OUT vector<Fat_Dir
 }
 
 
-BOOL DiskImgFile::ParaPathFromStr(IN LPCTSTR lptDirName, OUT vector<DirPaths>& paths)				// ½âÎöÂ·¾¶
+BOOL DiskImgFile::ParaPathFromStr(IN LPCTSTR lptDirName, OUT vector<DirPaths>& paths)				// è§£æè·¯å¾„
 {
 
 	int nLen = strlen(lptDirName);
@@ -4763,7 +4763,7 @@ BOOL DiskImgFile::ParaPathFromStr(IN LPCTSTR lptDirName, OUT vector<DirPaths>& p
 
 }
 extern int g_StartLog;
-BOOL DiskImgFile::GetDirectoryTabEx(OUT Fat_Directory& dir, OUT LPTSTR lptLongName, IN OUT INT& nIndex)			// ·µ»Øµ±Ç°Ä¿Â¼ÏÂµÚnIndex¸öÄ¿Â¼
+BOOL DiskImgFile::GetDirectoryTabEx(OUT Fat_Directory& dir, OUT LPTSTR lptLongName, IN OUT INT& nIndex)			// è¿”å›å½“å‰ç›®å½•ä¸‹ç¬¬nIndexä¸ªç›®å½•
 {
 	Fat_DirectoryRW dirRw;
 	DWORD nRead;
@@ -4772,7 +4772,7 @@ BOOL DiskImgFile::GetDirectoryTabEx(OUT Fat_Directory& dir, OUT LPTSTR lptLongNa
 	int iEntryCount = 0;
 	dir.DIR_EntryCount = iEntryCount;
 
-	if(ns == 0) // ÔÚ¸ùÄ¿Â¼ÏÂ
+	if(ns == 0) // åœ¨æ ¹ç›®å½•ä¸‹
 	{
 		if(nIndex > ROOTENTCNT)
 			return FALSE;
@@ -4927,8 +4927,8 @@ BOOL DiskImgFile::GetDirectoryTabEx(OUT Fat_Directory& dir, OUT LPTSTR lptLongNa
 	//	if(nIndex > BYSPERSEC * _imgBpb.BPB_SecPerClus / 32)
 	//		return FALSE;
 		
-		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-		int nCluIndex = 0;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+		int nCluIndex = 0;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 
 		Fat_Directory& fat = _curDirectory.at(ns - 1);		
 		UINT retAddr = ClusterToRelatAddr(fat.DIR_FstClusLO);
@@ -5130,7 +5130,7 @@ BOOL DiskImgFile::GetDirectoryTab(OUT Fat_Directory& dir, IN OUT INT& nIndex)
 	DWORD nRead;
 	int  ns = _curDirectory.size();
 	
-	if(ns == 0) // ÔÚ¸ùÄ¿Â¼ÏÂ
+	if(ns == 0) // åœ¨æ ¹ç›®å½•ä¸‹
 	{
 		if(nIndex > ROOTENTCNT)
 			return FALSE;
@@ -5176,8 +5176,8 @@ BOOL DiskImgFile::GetDirectoryTab(OUT Fat_Directory& dir, IN OUT INT& nIndex)
 		Fat_Directory& fat = _curDirectory.at(ns - 1);
 		UINT retAddr = ClusterToRelatAddr(fat.DIR_FstClusLO);
 		
-		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-		int nCluIndex = 0;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+		int nCluIndex = 0;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 	
 		WORD curClu = fat.DIR_FstClusLO;
 		nCluIndex = nIndex / recPerCluster;
@@ -5275,7 +5275,7 @@ BOOL DiskImgFile::GetDirectoryTab(OUT Fat_Directory& dir, IN LPCTSTR longName)
 }
 
 
-BOOL DiskImgFile::SetCurrentDirectory(IN LPCTSTR lptPathName)						// ÉèÖÃµ±Ç°Â·¾¶
+BOOL DiskImgFile::SetCurrentDirectory(IN LPCTSTR lptPathName)						// è®¾ç½®å½“å‰è·¯å¾„
 {
 	if(!ParaDirectoryFromStr(lptPathName, _curDirectory))
 		return FALSE;
@@ -5334,7 +5334,7 @@ BOOL DiskImgFile::FormatImgFile(LPCSTR lpVolLab, IN UINT fatType /* = FAT16_TYPE
 
 	if (nWritten != nCount)
 	{
-		//printmsg(L"Write bpb Error2! ¿Õ¼ä²»¹»´ó£¡");
+		//printmsg(L"Write bpb Error2! ç©ºé—´ä¸å¤Ÿå¤§ï¼");
 		return FALSE;
 	}
 	int i;
@@ -5582,10 +5582,10 @@ BOOL DiskImgFile::OpenImgFile(IN LPCSTR lpFileName, IN UINT fatType, IN LONGLONG
 	int nFats;
 	if (fatType==FAT12_TYPE)
 	{
-		nFats= (_imgBpb.BPB_FATSz16*BYSPERSEC*2)/3; //Fat×î¶à°üº¬´ØºÅ¸öÊı
+		nFats= (_imgBpb.BPB_FATSz16*BYSPERSEC*2)/3; //Fatæœ€å¤šåŒ…å«ç°‡å·ä¸ªæ•°
 		_fats.resize(nFats);
 
-		int nFatBytes = _imgBpb.BPB_FATSz16*BYSPERSEC; //Fat±íÕ¼ÓĞ×Ö½ÚÊı
+		int nFatBytes = _imgBpb.BPB_FATSz16*BYSPERSEC; //Fatè¡¨å æœ‰å­—èŠ‚æ•°
 		BYTE *fs=new BYTE[nFatBytes];
 		memset(fs,0x0,nFatBytes);
 
@@ -5808,8 +5808,8 @@ BOOL DiskImgFile::GetDirectoryLongName(OUT LPTSTR lpBuffer, IN DWORD nBufferLen,
 		}
 	
 
-		int recPerCluster = BYSPERSEC * SecPerClus() / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-		int nCluIndex = 0;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+		int recPerCluster = BYSPERSEC * SecPerClus() / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+		int nCluIndex = 0;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 
 		DWORD curClu = pClus;
 		
@@ -5969,7 +5969,7 @@ BOOL DiskImgFile::GetDirectoryTab(OUT Fat_Directory& dir, IN UINT clus, IN OUT I
 BOOL DiskImgFile::GetDirectoryTabEx(OUT Fat_Directory& dir, 
 									IN UINT clus, 
 									OUT LPTSTR lptLongName, 
-									IN OUT INT& nIndex) // ·µ»Ø´ØclusÏÂÄ¿Â¼ÏÂµÚnIndex¸öÄ¿Â¼			
+									IN OUT INT& nIndex) // è¿”å›ç°‡clusä¸‹ç›®å½•ä¸‹ç¬¬nIndexä¸ªç›®å½•			
 {
 	Fat_DirectoryRW dirRw;
 	DWORD nRead;
@@ -6001,8 +6001,8 @@ BOOL DiskImgFile::GetDirectoryTabEx(OUT Fat_Directory& dir,
 	//	if(nIndex <= 2)
 		//	nIndex = 2;
 
-		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//Ò»´Ø°üº¬×î´óµÄÖµ
-		int nCluIndex = 0;  // ¼ÇÂ¼ÔÚ¸ÃÄ¿Â¼µÄµÚ ¼¸¸ö´ØÏÂ²Ù×÷
+		int recPerCluster = BYSPERSEC * _imgBpb.BPB_SecPerClus / 32;	//ä¸€ç°‡åŒ…å«æœ€å¤§çš„å€¼
+		int nCluIndex = 0;  // è®°å½•åœ¨è¯¥ç›®å½•çš„ç¬¬ å‡ ä¸ªç°‡ä¸‹æ“ä½œ
 		nCluIndex = nIndex / recPerCluster;
 
 		UINT retAddr = ClusterToRelatAddr(clus);
@@ -6337,7 +6337,7 @@ BOOL DiskImgFile::GetDirectoryTabEx(OUT Fat_Directory& dir,
 
 }
 
-BOOL DiskImgFile::GetDirectoryTab(OUT Fat_Directory& dir, IN UINT clus, IN LPCTSTR longName)						 // ·µ»Ø´ØclusÏÂÄ¿Â¼ÏÂ³¤ÃûÎªlongNameµÄÄ¿Â¼
+BOOL DiskImgFile::GetDirectoryTab(OUT Fat_Directory& dir, IN UINT clus, IN LPCTSTR longName)						 // è¿”å›ç°‡clusä¸‹ç›®å½•ä¸‹é•¿åä¸ºlongNameçš„ç›®å½•
 {
 	int nIndex = 0;
 	TCHAR lpTemp[MAX_PATH];
@@ -6380,7 +6380,7 @@ BOOL DiskImgFile::SetVolLabel(LPCSTR lpVolLabel)
 			memcpy(dirRw.DIR_Name, lpVolLabel, nLen);
 			SetDiskFilePointer(NULL, _stOfRootAddr + i*32, NULL, FILE_BEGIN);
 			WriteDiskFile(_hFile, dirRw.DIR_Name, 11, &nWrite, NULL);
-			SetDiskFilePointer(NULL, 43, NULL, FILE_BEGIN);	// ¸ù¾İBPBµÄÆ«ÒÆÁ¿À´È·¶¨
+			SetDiskFilePointer(NULL, 43, NULL, FILE_BEGIN);	// æ ¹æ®BPBçš„åç§»é‡æ¥ç¡®å®š
 			WriteDiskFile(_hFile, dirRw.DIR_Name, 11, &nWrite, NULL);
 			return TRUE;
 		}
@@ -6492,7 +6492,7 @@ BOOL  DiskImgFile::TrimDirEntrySpace()
 	dirs.resize(0);
 	
 	UINT nIndex = 0;
-	if(ns == 0) // ÔÚ¸ùÄ¿Â¼ÏÂ
+	if(ns == 0) // åœ¨æ ¹ç›®å½•ä¸‹
 	{
 		UINT retAddr = _stOfRootAddr;
 		SetDiskFilePointer(NULL, retAddr , NULL, FILE_BEGIN);
@@ -6679,7 +6679,7 @@ HANDLE DiskImgFile::FindFirstFile(LPCTSTR lptFileName,					// pointer to name of
 	fh->_handle = (HANDLE)fh;
 
 	if(_curDirectory.size() == 0)
-		fh->_curCluster = 0; // µ±Ç°´ØµÄ±àºÅ
+		fh->_curCluster = 0; // å½“å‰ç°‡çš„ç¼–å·
 	else
 	{
 		UINT cc = _curDirectory.at(_curDirectory.size() - 1).DIR_FstClusHI;
@@ -6688,7 +6688,7 @@ HANDLE DiskImgFile::FindFirstFile(LPCTSTR lptFileName,					// pointer to name of
 		fh->_curCluster = cc;
 	}
 
-	fh->_nRetIndex = 0; // ´ØÄÚµ±Ç°Ë÷Òı
+	fh->_nRetIndex = 0; // ç°‡å†…å½“å‰ç´¢å¼•
 
 
 	memset(&fh->_curFileTab, 0x00, sizeof(Fat_Directory));
@@ -6696,7 +6696,7 @@ HANDLE DiskImgFile::FindFirstFile(LPCTSTR lptFileName,					// pointer to name of
 	if (lptFileName == NULL)
 		lptFileName = "*.*";
 	if(_tcsstr((LPCTSTR)lptFileName, (LPCTSTR)"*") != NULL)
-		fh->_findData.dwReserved0 = 1;			// ±íÊ¾ÕÒÏàËÆlike
+		fh->_findData.dwReserved0 = 1;			// è¡¨ç¤ºæ‰¾ç›¸ä¼¼like
 	lstrcpy((LPTSTR)fh->_findData.cFileName, lptFileName);
 	memset(fh->_findData.cAlternateFileName, 0x00, 14 * sizeof(TCHAR));
 	lstrcpy((LPTSTR)fh->_findData.cAlternateFileName, lptFileName);
@@ -6879,7 +6879,7 @@ unsigned short DiskImgFile::crc16(char *crcarray,int Length)
 	return crcbyte;	
 };
 
-void	DiskImgFile::GetCRCStr(char* src , UINT srclen , char* CRCStr)//CRCStrÎª4¸öBYTE
+void	DiskImgFile::GetCRCStr(char* src , UINT srclen , char* CRCStr)//CRCSträ¸º4ä¸ªBYTE
 {
 	unsigned short ret = crc16(src , srclen);
 	sprintf(CRCStr , "%04X" , ret);
@@ -6981,7 +6981,7 @@ BOOL DiskImgFile::RefreshFat12Table()
 	for (int i = 0; i<nFats; i++)
 	{
 		iFatOffset= i+i/2;
-		iThisFatEntOffset= iFatOffset/*%BYSPERSEC*/; //È¡Óà²Ù×÷´íÎó
+		iThisFatEntOffset= iFatOffset/*%BYSPERSEC*/; //å–ä½™æ“ä½œé”™è¯¯
 		
 		wFAT12ClusEntryVal = _fats.at(i); //65528=0xfff8
 

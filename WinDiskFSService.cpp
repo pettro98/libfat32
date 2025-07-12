@@ -28,7 +28,7 @@ CWinDiskFSService::~CWinDiskFSService()
 //////////////////////////////////////////////////////////////////////////
 BOOL CWinDiskFSService::FSPathFileExist(LPCSTR lpFileName)
 {
-	//这个函数貌似没用到wbt del
+	//杩欎釜鍑芥暟璨屼技娌＄敤鍒皐bt del
 	//return PathFileExists(lpFileName);
 	return TRUE;
 }

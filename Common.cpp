@@ -45,7 +45,7 @@ UINT GenSecPerClus(LONGLONG disksize)
 		
 		iIndex++;
 		
-	} while(1);//DskTableFAT16,×ÜµÄSectorÊıºÍÃ¿Clusterº¬ÓĞSectorÊı
+	} while(1);//DskTableFAT16,æ€»çš„Sectoræ•°å’Œæ¯Clusterå«æœ‰Sectoræ•°
 	
 	
 	return 0;
@@ -499,7 +499,7 @@ void RwInfoFromLongDirInfo(Fat_DirectoryRW& rw, const Fat_LongDirectory& dir)
 	memcpy(&rw, &longRw, sizeof(Fat_DirectoryRW));
 }
 
-void RemoveCharA(LPSTR lpSrc, CHAR ch)   // Çå³ı×Ö·û´®ÖĞµÄch ×Ö·û
+void RemoveCharA(LPSTR lpSrc, CHAR ch)   // æ¸…é™¤å­—ç¬¦ä¸²ä¸­çš„ch å­—ç¬¦
 {
 	int nLen = strlen(lpSrc);
 	LPSTR pch =  lpSrc;//new char[nLen + 1];
@@ -520,7 +520,7 @@ void RemoveCharA(LPSTR lpSrc, CHAR ch)   // Çå³ı×Ö·û´®ÖĞµÄch ×Ö·û
 	*pstrDest = '\0';
 }
 
-void RemoveTChar(LPTSTR lptSrc, char ch)   // Çå³ı×Ö·û´®ÖĞµÄch ×Ö·û
+void RemoveTChar(LPTSTR lptSrc, char ch)   // æ¸…é™¤å­—ç¬¦ä¸²ä¸­çš„ch å­—ç¬¦
 {
 	int nLen = strlen(lptSrc);
 	LPTSTR pch =  lptSrc;//new char[nLen + 1];
@@ -543,7 +543,7 @@ void RemoveTChar(LPTSTR lptSrc, char ch)   // Çå³ı×Ö·û´®ÖĞµÄch ×Ö·û
 }
 
 
-LPSTR ReplaceChar(LPCSTR lpSrc, char srcCh, char desCh)   // Çå³ı×Ö·û´®ÖĞµÄsrcch ×Ö·û ÎªdesCh
+LPSTR ReplaceChar(LPCSTR lpSrc, char srcCh, char desCh)   // æ¸…é™¤å­—ç¬¦ä¸²ä¸­çš„srcch å­—ç¬¦ ä¸ºdesCh
 {
 	int nLen = strlen(lpSrc);
 	LPSTR pch =  new char[nLen + 1];
@@ -808,11 +808,11 @@ LPTSTR GetStrFromChArry(char* pch, INT len)
 	return lptStr;
 }
 
-BOOL  IsNeedLongEntry(LPCSTR lpstr) // ´óĞ¡Ğ´Ò»ÖÂ£¬È«ÊÇ×ÖÄ¸ Èç¹ûÊÇÎÄ¼ş±ØĞëÒªÂú×ã8.3µÄ¸ñÊ½ĞÎÊ½
+BOOL  IsNeedLongEntry(LPCSTR lpstr) // å¤§å°å†™ä¸€è‡´ï¼Œå…¨æ˜¯å­—æ¯ å¦‚æœæ˜¯æ–‡ä»¶å¿…é¡»è¦æ»¡è¶³8.3çš„æ ¼å¼å½¢å¼
 {
 /*	int nLen ;
 	LPSTR lpName = GetLeftStr(lpstr, '.', TRUE);
-	if(lpName)				// ÓĞ.µÄÎÄ¼şÃû
+	if(lpName)				// æœ‰.çš„æ–‡ä»¶å
 	{
 		int i = 1;
 		nLen = strlen(lpName);
@@ -977,7 +977,7 @@ UINT Disk32SizeType(LONGLONG disksize)
 		return DISK32_U32G;
 }
 
-void TrimString(LPSTR lpSrc, BOOL isLeft)   // ÕûÀí×Ö·û´®ÖĞµÄ¿Õ¸ñ×Ö·û
+void TrimString(LPSTR lpSrc, BOOL isLeft)   // æ•´ç†å­—ç¬¦ä¸²ä¸­çš„ç©ºæ ¼å­—ç¬¦
 {
 	int nLen = strlen(lpSrc);
 	LPSTR pch =  lpSrc;//new char[nLen + 1];

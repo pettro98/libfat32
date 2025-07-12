@@ -187,7 +187,7 @@ public:
         HANDLE& hFile
 		);
 	virtual BOOL GetVolLabel(LPSTR lpLabel);
-	virtual BOOL CloseFile(HANDLE handle);	// 针对文件操作
+	virtual BOOL CloseFile(HANDLE handle);	// 閽堝鏂囦欢鎿嶄綔
 	virtual void* MirrorFile();
 	virtual BOOL IsFoulder(Flag fAttr);
 	virtual BOOL IsVolLabel(Flag fAttr);
@@ -202,7 +202,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Arrtirbute
 private:
-	DiskImgFile* _pMirrorFile;				// 镜像文件
+	DiskImgFile* _pMirrorFile;				// 闀滃儚鏂囦欢
 	//CImgFileFind _fileFind;
 	ULONGLONG		 _diskSize;
 	
